@@ -24,7 +24,7 @@ results <- Bsper(data=iris[,1:4])
 summary(results)
 ```
 
-- Função prórpria
+- Função própria
 
 ```{r}
 bartlett = function(M){
@@ -33,11 +33,10 @@ bartlett = function(M){
     R = det(cor(M))
     value = -((n-1) - (2*p+5)/6)*log(R)
     v = (p*(p-1))/2
-    QuiQuadrado = qchisq(value, v)
-    sprintf('O valor da Estatísica de Barlett é %f', value)
-    sprintf('O teste QuiQuadrado é %f', QuiQuadrado)
+    #QuiQuadrado = (value, v)
+    sprintf(paste('O valor da Estatísica de Barlett é', value))
+    #sprintf('O teste QuiQuadrado é %f', QuiQuadrado)
 }
 
 bartlett(iris[,1:4])
 ```
-
