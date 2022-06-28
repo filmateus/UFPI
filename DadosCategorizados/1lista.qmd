@@ -1,0 +1,68 @@
+---
+title: ""
+author: ""
+format: pdf
+editor: visual
+---
+**1ª LISTA** 
+
+**Nome:** Filipe Costa
+
+
+## Exercicio 1
+
+a. Qualitativa nominal
+b. Quantitativa discreta
+c. Quantitativa discreta
+d. Qualitativa nominal
+e. Qualitativa ordinal
+f. Qualitativa ordinal
+g. Qualitativa nominal
+h. Qualitativa nominal
+i. Qualitativa nominal
+j. Qualitativa nominal
+k. Qualitativa ordinal
+l. Quantitiva contínua
+m. Quantitativa discreta
+
+## Exercício 2
+
+### Situação prática 1
+- Variavel Resposta: **Presença de problemas patológicos**
+- Variáveis explicativas: *Vacinação contra coliabiloce, tratamento com oxitona, aleitamento em grupo, patologia de parto, temperatura, higine e estado nutricional*
+
+### Situação prática 2
+- Variavel Resposta: **Desempenho de uma prensa hidráulica**
+- Variáveis explicativas: *Tipos de óleo lubrificante e horas de funcionamento da prensa*
+
+## Exercício 3
+- Idade: *Contagem discreta*
+- Sexo: *Binária*
+- Grau de Escolaridade: *Politômicas*
+- Tipo de Doença: *Politômicas*
+- Pressão arterial: *Contagem discreta*
+- Alergia à asperina: *Binária*
+- Pergunta: *Binária*
+
+## Exercício 4
+
+- Tipo de Vegetação: *Politômicas*
+- Grau de cobertura da vegetação (0-25%, 25%-50%,...): *Politômicas*
+- Superfície de desmatamentos: *Contagem Discreta* ou *Contínua*
+- Intensidade de atividade humana no local (nenhuma, 
+pouca, moderada, intensa): *Politômicas*
+
+## Exercício 5
+
+- Estudo 1: **Utilização de plantas medicinais como remédio caseiro na Atenção Primária em Blumenau, Santa Catarina, Brasil**
+
+    Resumo:
+    Na última década foi observado um aumento no uso de práticas terapêuticas alternativas apoiadas por políticas no âmbito do Sistema Único de Saúde (SUS), em particular o uso de plantas medicinais e de fitoterápicos. Este estudo investigou o uso de remédios caseiros pelos usuários da Atenção Primária da Saúde do município de Blumenau, em Santa Catarina. Estudo epidemiológico observacional seccional, cujos dados foram obtidos através de questionário aplicado a 701 indivíduos. Utilizou-se um modelo de regressão logística não condicional para estimar a associação entre uso de remédios caseiros e variáveis sociodemográficas e médicoassistenciais. Observou-se que 21,9% dos entrevistados utilizaram remédios caseiros, sendo as plantas medicinais obtidas no quintal das casas a principal escolha. Como as mais citadas destacaram-se erva-cidreira, camomila, hortelã e limão. O uso de remédios caseiros se mostrou associado ao sexo feminino, à idade mais avançada e à modalidade de serviço, Estratégia Saúde da Família. Os resultados mostraram que as plantas medicinais são utilizadas como alternativa terapêutica. Entretanto, é necessário que os serviços de atenção primária garantam o acesso aos produtos naturais, bem como profissionais qualificados capazes de fornecer orientações sobre sua utilização.
+
+- Variáveis: 
+    - Sexo (n = 701)
+    - Faixa etária (n = 701)
+    - Cor autodeclarada (n = 697)
+    - Estado civil (n = 699)
+    - Escolaridade (n = 687)
+    - Classe de consumo (n = 701)
