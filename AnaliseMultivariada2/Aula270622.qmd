@@ -1,0 +1,12 @@
+---
+title: ""
+author: ""
+format: pdf
+editor: visual
+---
+
+# Aula do dia 27/06/2022
+
+```{r}
+
+```
