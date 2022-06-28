@@ -12,15 +12,12 @@ editor: visual
 - Tese de esfericidade de **Bartlett**
     - **IMPORTANTE**: $H_{0}$: *A matrix de correlação é uma matriz identidade*
 
-
-
 Função `R`
 
 ```{r}
 #install.packages("MVTests", dependencies = T)
-library(MVTests)
 data(iris)
-results <- Bsper(data=iris[,1:4])
+results <- MVTests::Bsper(data=iris[,1:4])
 summary(results)
 ```
 
@@ -39,4 +36,25 @@ bartlett = function(M){
 }
 
 bartlett(iris[,1:4])
+```
+
+
+- Medida de adequabilidade da amostra de **Kaiser-Meyer-Olkin(KMO)**
+
+Função `R`
+
+```{r }
+#install.packages("psych", dependencies = T)
+#psych::KMO()
+```
+
+Função própria
+
+```{r}
+KMO1 = function(M){
+      num = sum(M^2) - diag(M)
+      den = (sum(M^2) - diag(M)) - (sum(cor(M)^2 - diag(cor(M))))
+      kmo = num/dem
+      print(kmo)
+}
 ```
