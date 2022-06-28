@@ -12,6 +12,18 @@ editor: visual
 - Tese de esfericidade de **Bartlett**
     - **IMPORTANTE**: $H_{0}$: *A matrix de correlação é uma matriz identidade*
 
+
+
+Função `R`
+
+```{r}
+#install.packages("MVTests", dependencies = T)
+library(MVTests)
+data(iris)
+results <- Bsper(data=iris[,1:4])
+summary(results)
+```
+
 - Função prórpria
 
 ```{r}
@@ -29,12 +41,3 @@ bartlett = function(M){
 bartlett(iris[,1:4])
 ```
 
-Função `R`
-
-```{r}
-#install.packages("MVTests", dependencies = T)
-library(MVTests)
-data(iris)
-results <- Bsper(data=iris[,1:4])
-summary(results)
-```
