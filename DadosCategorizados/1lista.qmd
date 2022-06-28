@@ -66,3 +66,55 @@ pouca, moderada, intensa): *Politômicas*
     - Estado civil (n = 699)
     - Escolaridade (n = 687)
     - Classe de consumo (n = 701)
+
+
+- Estudo 2: **Uma contribuição para a segurança da informação: um estudo de casos múltiplos com organizações brasileiras**
+
+    Resumo:
+    A política de segurança da informação figura dentre os fatores críticos para o sucesso da proteção da informação, devendo declarar controles adequados. A literatura acadêmica sobre este tema é reduzida e os gestores se deparam com dificuldades em selecionar controles para a política de uma organização. Este trabalho tem como objetivo compreender os controles citados nas políticas de segurança da informação das organizações visando identificar a existência de controles recorrentes para subsidiar a tomada de decisão pelo gestor da informação, acerca da definição dos controles comuns que devem ser considerados na elaboração da política. Como metodologia, utiliza uma abordagem qualitativa, com objetivo descritivo por meio de pesquisa bibliográfica, estudo de casos múltiplos e análise de documentos primários com análise de conteúdo e síntese de casos cruzados. A coleta de dados foi realizada com base em uma amostragem não probabilística com dez organizações brasileiras distintas, com políticas de segurança da informação maduras. Como resultados foram identificados 40 controles citados de forma recorrente em políticas, os quais também foram associados à principal referência da literatura da área, descritos e agrupados em quatro extratos de frequência: 12 controles citados por 100% das políticas, 15 por 90%, 16 por 80% e 40 por 70%.
+
+
+- Variáveis: 
+    - Dez organizações brasileiras (n=10)
+    - Financeiro(n=2)
+    - Ensino(n=1)
+    - Varejo (n=1)
+    - Construção(n=1)
+    - Transporte de passageiros(n=1)
+    - Seguros e finanças(n=1)
+    - Serviços de informação (tv, internet e telefonia)(n=1)
+    - Serviços de TI/telecom(n=1)
+    - Bolsa de valores(n=1)
+
+
+- Estudo 3: **NÍVEL DE SATISFAÇÃO DOS IDOSOS USUÁRIOS DE PRÓTESES AUDITIVAS DOADAS PELA APAC-NAMIUNIFOR**
+
+    Resumo:
+    A pesquisa objetivou conhecer o nível de satisfação dos pacientes idosos, usuários de
+    próteses auditivas, doadas pela APAC (autorização de atendimento de alta complexidade)
+    conveniada com o NAMI – UNIFOR (Universidade Fortaleza). Foram entrevistados, através
+    de aplicação de questionário, 20 pacientes, a partir de 60 anos de idade, de ambos os
+    sexos, beneficiados por doação de AASI (Aparelho de Amplificação Sonora Individual)
+    há pelo menos 4 meses. Verificou-se o predomínio do gênero masculino à solicitação de
+    próteses auditivas totalizando 12 pacientes (60%), a presbiacusia revelou-se como causa
+    predominante em 12 pacientes (60%); o tipo de prótese auditiva mais indicada foi a
+    retroauricular em 14 pacientes (70%); observou-se maior rendimento da prótese nos itens
+    relacionados ao uso do mesmo na televisão (60%), conversa (60%), música (60%), conversa
+    na rua (40%) e igreja (45%); houve menor satisfação do uso da prótese no shopping
+    center (20%) e banco (20%). Quanto às queixas dos usuários, foi referido o uso da prótese
+    em ambientes com sons intensos (25%), seguido do item relacionado ao manuseio dos
+    controles (20%). A aplicação do questionário demonstrou bom nível de satisfação dos
+    pacientes, porém verificou-se que, em determinados ambientes, houve reduzida experienciação
+    por parte dos mesmos, revelando, provavelmente, um estilo de vida mais doméstico.
+
+- Variáveis:
+    - Idosos (n=20)
+    - Sexo Masculino (n=12)
+    - Sexo Feminino(n=8)
+    - Dados de identificação do paciente,
+    - Caracterização da surdez
+    - Tipo
+    - Marca
+    - Modelo da prótese Auditiva
+    - Tempo de uso da prótese auditiva 
+    - Rendimento de uso da prótese auditiva em diferentes situações de vida diária
