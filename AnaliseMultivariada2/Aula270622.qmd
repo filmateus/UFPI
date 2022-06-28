@@ -15,10 +15,11 @@ editor: visual
 - Função prórpria
 
 ```{r}
-bartlett = function(R){
-    n = dim(R)[1]
-    p = dim(R)[2]
-    value = -((n-1) - (2*p+5)/6)*log(cor(R))
+bartlett = function(M){
+    n = dim(M)[1]
+    p = dim(M)[2]
+    R = det(cor(M))
+    value = -((n-1) - (2*p+5)/6)*log(R)
     v = (p*(p-1))/2
     QuiQuadrado = qchisq(value, v)
     sprintf('O valor da Estatísica de Barlett é %f', value)
