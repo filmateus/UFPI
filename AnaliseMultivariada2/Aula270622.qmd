@@ -30,9 +30,11 @@ bartlett = function(M){
     R = det(cor(M))
     value = -((n-1) - (2*p+5)/6)*log(R)
     v = (p*(p-1))/2
-    #QuiQuadrado = (value, v)
-    sprintf(paste('O valor da Estatísica de Barlett é', value))
-    #sprintf('O teste QuiQuadrado é %f', QuiQuadrado)
+    QuiQuadrado = pchisq(value, v)
+    print(list(
+    sprintf(paste('O valor da Estatísica de Barlett é', round(value,3))),
+    sprintf(paste('QuiQuadrado é', round(QuiQuadrado,3)))
+    ))
 }
 
 bartlett(iris[,1:4])
@@ -58,3 +60,4 @@ KMO1 = function(M){
       print(kmo)
 }
 ```
+
