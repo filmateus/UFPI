@@ -1,0 +1,404 @@
+---
+title: "Conhecendo Rmarkdown"
+subtitle: ""  
+author: 
+  - "Curso de Extensão em R"
+  #- "Garrick Aden-Buie"
+date: '`r format(Sys.Date(), "%d %B,%Y")`'
+encoding: "UTF-8"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width = 9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#1381B0",
+  secondary_color = "#FF961C",
+  inverse_header_color = "#FFFFFF"
+)
+```
+
+## Introdução
+
+### O que é o R?
+
+- R é um ambiente de software livre para computação estatística e gráficos.
+
+- fornece uma ampla variedade de técnicas estatísticas (modelagem linear e não linear, testes estatísticos clássicos, análise de séries temporais, classificação, agrupamento, …) e gráficas, e é altamente extensível
+
+
+```{r fig.align='center', out.width= '30%', echo=FALSE}
+knitr::include_graphics('https://www.r-project.org/Rlogo.png')
+```
+
+---
+
+## O que é o R Markdown
+
+.left-column[
+```{r fig.align='center', out.width= '80%', echo=FALSE}
+knitr::include_graphics('https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdown.png')
+```
+]
+
+.right-column[
+
+- Resumidamente:
+
+  - O R Markdown foi desenvolvido em 2004 por John Gruber e Aaron Swartz para simplificar a estruturação de um texto.
+
+  - É uma ferramenta perfeita para transformar suas análises em documentos, relatórios, apresentações e até mesmo dashboards de alta qualidade e de maneira programática;
+
+  - Facilita a reprodução de resultados, visto que tanto código quanto narrativa estão no documento, e os resultados são automaticamente gerados do código presente no documento.
+
+  - O R Markdown suporta dezenas de formatos de saídas estáticas e dinâmicas, incluindo HTML, PDF, MS Word, Beamer, slides HTML5, estilo Tufte, livros, dashboards, aplicativos, artigos científicos, sites e outras coisas a mais.
+
+]
+---
+name: colors
+
+## O que é o R Markdown
+
+### Usando o Rmarkdown podemos facilmente formatar
+
+- textos em **negrito** e *itálico*
+
+- listas
+
+- cabeçalhos (títulos, sub-títulos etc...)
+
+- [hyperlinks](https://media.giphy.com/media/LKf4i5Tvt7mE0/giphy.gif)
+
+- gráficos e tabelas
+
+- equações matemáticas - $Rmarkdown$
+
+- etc...
+
+
+---
+
+# Big Topic or Inverse Slides `#`
+
+## Slide Headings `##`
+
+### Sub-slide Headings `###`
+
+#### Bold Call-Out `####`
+
+This is a normal paragraph text. Only use header levels 1-4.
+
+##### Possible, but not recommended `#####`
+
+###### Definitely don't use h6 `######`
+
+---
+
+# Left-Column Headings
+
+.left-column[
+## First
+
+## Second
+
+## Third
+]
+
+.right-column[
+Dolor quis aptent mus a dictum ultricies egestas.
+
+Amet egestas neque tempor fermentum proin massa!
+
+Dolor elementum fermentum pharetra lectus arcu pulvinar.
+]
+
+---
+class: inverse center middle
+
+# Topic Changing Interstitial
+
+--
+
+```
+class: inverse center middle
+```
+
+---
+layout: true
+
+## Blocks
+
+---
+
+### Blockquote
+
+> This is a blockquote following a header.
+>
+> When something is important enough, you do it even if the odds are not in your favor.
+
+---
+
+### Code Blocks
+
+#### R Code
+
+```{r eval=FALSE}
+ggplot(gapminder) +
+  aes(x = gdpPercap, y = lifeExp, size = pop, color = country) +
+  geom_point() +
+  facet_wrap(~year)
+```
+
+#### JavaScript
+
+```js
+var fun = function lang(l) {
+  dateformat.i18n = require('./lang/' + l)
+  return true;
+}
+```
+
+---
+
+### More R Code
+
+```{r eval=FALSE}
+dplyr::starwars %>% dplyr::slice_sample(n = 4)
+```
+
+---
+
+```{r message=TRUE, eval=requireNamespace("cli", quietly = TRUE)}
+cli::cli_alert_success("It worked!")
+```
+
+--
+
+```{r message=TRUE}
+message("Just a friendly message")
+```
+
+--
+
+```{r warning=TRUE}
+warning("This could be bad...")
+```
+
+--
+
+```{r error=TRUE}
+stop("I hope you're sitting down for this")
+```
+
+
+---
+layout: true
+
+## Tables
+
+---
+exclude: `r if (requireNamespace("tibble", quietly=TRUE)) "false" else "true"`
+
+```{r eval=requireNamespace("tibble", quietly=TRUE)}
+tibble::as_tibble(mtcars)
+```
+
+---
+
+```{r}
+knitr::kable(head(mtcars), format = 'html')
+```
+
+---
+exclude: `r if (requireNamespace("DT", quietly=TRUE)) "false" else "true"`
+
+```{r eval=requireNamespace("DT", quietly=TRUE)}
+DT::datatable(head(mtcars), fillContainer = FALSE, options = list(pageLength = 4))
+```
+
+---
+layout: true
+
+## Lists
+
+---
+
+.pull-left[
+#### Here is an unordered list:
+
+*   Item foo
+*   Item bar
+*   Item baz
+*   Item zip
+]
+
+.pull-right[
+
+#### And an ordered list:
+
+1.  Item one
+1.  Item two
+1.  Item three
+1.  Item four
+]
+
+---
+
+### And a nested list:
+
+- level 1 item
+  - level 2 item
+  - level 2 item
+    - level 3 item
+    - level 3 item
+- level 1 item
+  - level 2 item
+  - level 2 item
+  - level 2 item
+- level 1 item
+  - level 2 item
+  - level 2 item
+- level 1 item
+
+---
+
+### Nesting an ol in ul in an ol
+
+- level 1 item (ul)
+  1. level 2 item (ol)
+  1. level 2 item (ol)
+    - level 3 item (ul)
+    - level 3 item (ul)
+- level 1 item (ul)
+  1. level 2 item (ol)
+  1. level 2 item (ol)
+    - level 3 item (ul)
+    - level 3 item (ul)
+  1. level 4 item (ol)
+  1. level 4 item (ol)
+    - level 3 item (ul)
+    - level 3 item (ul)
+- level 1 item (ul)
+
+---
+layout: true
+
+## Plots
+
+---
+
+```{r plot-example, eval=requireNamespace("ggplot2", quietly=TRUE)}
+library(ggplot2)
+(g <- ggplot(mpg) + aes(hwy, cty, color = class) + geom_point())
+```
+
+---
+
+```{r plot-example-themed, eval=requireNamespace("showtext", quietly=TRUE) && requireNamespace("ggplot2", quietly=TRUE)}
+g + xaringanthemer::theme_xaringan(text_font_size = 16, title_font_size = 18) +
+  ggtitle("A Plot About Cars")
+```
+
+.footnote[Requires `{showtext}`]
+
+---
+layout: false
+
+## Square image
+
+<center><img src="https://octodex.github.com/images/labtocat.png" alt="GithHub Octocat" height="400px" /></center>
+
+.footnote[GitHub Octocat]
+
+---
+
+### Wide image
+
+![A wide image with a diagram of branching in git.](https://docs.github.com/assets/images/help/repository/branching.png)
+
+.footnote[Wide images scale to 100% slide width]
+
+---
+
+## Two images
+
+.pull-left[
+![A GitHub Octocat, style "mother hubber"](https://octodex.github.com/images/motherhubbertocat.png)
+]
+
+.pull-right[
+![A GitHub Octocat, style "dinotcat"](https://octodex.github.com/images/dinotocat.png)
+]
+
+---
+
+### Definition lists can be used with HTML syntax.
+
+<dl>
+<dt>Name</dt>
+<dd>Godzilla</dd>
+<dt>Born</dt>
+<dd>1952</dd>
+<dt>Birthplace</dt>
+<dd>Japan</dd>
+<dt>Color</dt>
+<dd>Green</dd>
+</dl>
+
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R packages:
+
+[**xaringan**](https://github.com/yihui/xaringan)<br>
+[gadenbuie/xaringanthemer](https://github.com/gadenbuie/xaringanthemer)
+
+The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](http://yihui.name/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+
+---
+## Referências
+
+- GOMES, Fellipe. Tabelas Incriveis com RDisponível em: https://gomesfellipe.github.io/post/2018-01-12-tabelas-incriveis-com-r/abelas-incriveis-com-r/, 2018. Acesso em: 24 de mai de 2021
+  
+- GONZAGA, Sillas. Introdução a R para Visualização e Apresentação de Dados.,2018. Diponívelem: http://sillasgonzaga.com/material/curso_visualizacao/apresentacao-de-dados-com-relatorios.html. Acesso em: 19 de maio de 2021
+
+- MAYER, Fernando. Rmarkdown-rautu, 2015. Disponível em:http://www.leg.ufpr.br/~fernandomayer/palestra/useR-2015/Rmarkdown-rautu.html. Acesso em: 20 de maio de 2021
+
+- MILZ, Beatriz. Adicionando números em R Markdown, 2020. Disponível em: https://beatrizmilz.github.io/RStudio_Certification/slides.html?panelset2=default#7. Acesso em:05 de jun de 2021
+
+- OSWALDO. Rmarkdown,2017. Disponível em: https://gitlab.procc.fiocruz.br/oswaldo/DS_2017/blob/153495ccebb0b66766b79c695bd01a38ae0dda47/markdown/markdown.md. Acesso em: 08 de jun de 2021
+
+---
+## Referências
+
+
+- PERES, Fernanda. R Markdown: Gerando relatórios usando o R (Parte 4), 2020. Disponível em: https://www.youtube.com/watch?v=177TA5Gyse4&t=679s. Acesso em: 10 de ago de 2021
+
+- QA STACK. Inserir imagem / tabela no R Markdown. Disponível em: https://qastack.com.br/programming/25166624/insert-picture-table-in-r-markdown. Acesso em: 05 de jun de 2021
+
+- TI-ENXAME.COM Programaticamente criando tabelas Markdown em R com KnitR,2013. Disponível em: https://www.ti-enxame.com/pt/r/programaticamente-criando-tabelas-markdown-em-r-com-knitr/1072764238/. Acesso em 01 de jun de 2021
+
+- XIE, Yihui; ALLAIRE, Joseph J.; GROLEMUND, Garrett. R Markdown: O Guia Definitivo, 2021. Disponível em: https://bookdown.org/yihui/rmarkdown/markdown-syntax.html. Acesso em: 08 de jun de 2021
