@@ -35,13 +35,19 @@ library(xaringanthemer)
 style_duo_accent(
   primary_color = "#1381B0",
   secondary_color = "#FF961C",
-  inverse_header_color = "#FFFFFF"
+  inverse_header_color = "#FFFFFF",
+  title_slide_background_color = "#fcfcfc",
+  title_slide_text_color = "#000000",
+  title_slide_background_image = "https://www.infoescola.com/wp-content/uploads/2016/05/ufpi.png",
+  title_slide_background_size = "50",
+  title_slide_background_position = "bottom 0px right 00px;",
+  header_font_google = google_font("Source Code Pro")
 )
 ```
 
-## Introdução
+# Introdução
 
-### O que é o R?
+## O que é o R?
 
 - R é um ambiente de software livre para computação estatística e gráficos.
 
@@ -54,7 +60,7 @@ knitr::include_graphics('https://www.r-project.org/Rlogo.png')
 
 ---
 
-## O que é o R Markdown
+# O que é o R Markdown
 
 .left-column[
 ```{r fig.align='center', out.width= '80%', echo=FALSE}
@@ -78,9 +84,9 @@ knitr::include_graphics('https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdo
 ---
 name: colors
 
-## O que é o R Markdown
+# O que é o R Markdown
 
-### Usando o Rmarkdown podemos facilmente formatar
+## Usando o Rmarkdown podemos facilmente formatar
 
 - textos em **negrito** e *itálico*
 
@@ -92,291 +98,78 @@ name: colors
 
 - gráficos e tabelas
 
-- equações matemáticas - $Rmarkdown$
+- equações matemáticas - $\infty$
 
 - etc...
 
 
 ---
 
-# Big Topic or Inverse Slides `#`
-
-## Slide Headings `##`
-
-### Sub-slide Headings `###`
-
-#### Bold Call-Out `####`
-
-This is a normal paragraph text. Only use header levels 1-4.
-
-##### Possible, but not recommended `#####`
-
-###### Definitely don't use h6 `######`
-
----
-
-# Left-Column Headings
+# Gerando arquivo em PDF
 
 .left-column[
-## First
 
-## Second
+```{r fig.align='center', out.width= '90%', echo=FALSE}
+knitr::include_graphics("https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ")
+```
 
-## Third
 ]
 
 .right-column[
-Dolor quis aptent mus a dictum ultricies egestas.
 
-Amet egestas neque tempor fermentum proin massa!
+  - Para compilar um documento R Markdown em PDF, basta instalar o pacote Tinytex.
 
-Dolor elementum fermentum pharetra lectus arcu pulvinar.
+```{r eval = FALSE}
+install.packages('tinytex', dependencies = TRUE)
+tinytex::install_tinytex()
+```
+
+O `TinyTeX` é uma distribuição LaTeX personalizada baseada no TeX Live que é pequeno em tamanho (cerca de 61 MB no macOS / Linux e 94 MB no Windows quando (g) compactado), mas funciona bem na maioria dos casos, especialmente para usuários R.
+
 ]
-
----
-class: inverse center middle
-
-# Topic Changing Interstitial
-
---
-
-```
-class: inverse center middle
-```
-
----
-layout: true
-
-## Blocks
-
 ---
 
-### Blockquote
+# Formatação de texto
 
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
+ - Os principais tipos de formatação de texto em Markdown e suas respectivas
+sintaxes são:
+
+- Textos em *itálico*: são produzidos com um par de asteriscos: ∗Itálico∗
+
+-  Textos em **negrito** são produzidos com dois pares de asteriscos: ∗∗Negrito∗∗
+
+-  Um par de acentos til produz texto subscrito: CO ∼ 2 ∼ vira CO~2
+  - Outro forma é usando o formato usando $ CO_{2} $ , $CO_{2}$
+
+
+- Um par de acentos circunflexos produz texto sobrescrito x^ 2^, vira x^2^.
+  - Outro forma é usando o formato usando $ x^{2} $, $x^{2}$ 
+
+- Hyperlinks são criados com a sintaxe [texto] (link)
 
 ---
 
-### Code Blocks
+# Cabeçalhos
 
-#### R Code
+Cabeçalhos de capítulos (seções) e subcapítulos são criadas de maneira hierárquica, de acordo com a quantidade de jogos-da-velha(hashtags) usados. Quanto maior o número, menor a hierarquia
 
-```{r eval=FALSE}
-ggplot(gapminder) +
-  aes(x = gdpPercap, y = lifeExp, size = pop, color = country) +
-  geom_point() +
-  facet_wrap(~year)
-```
-
-#### JavaScript
-
-```js
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
-```
+# # 1º Nível
+## ## 2º Nível
+### ### 3º nível
+#### #### 4º Nível
+##### ##### 5º Nível 
+###### ###### 6º Nível  
 
 ---
 
-### More R Code
+# Lista e Citações
 
-```{r eval=FALSE}
-dplyr::starwars %>% dplyr::slice_sample(n = 4)
-```
+Para adicionar listas é necessario ultilizar um * ou - e espaço antes da palavra.
 
----
+- `-` Primeira coisa
 
-```{r message=TRUE, eval=requireNamespace("cli", quietly = TRUE)}
-cli::cli_alert_success("It worked!")
-```
+* `*` Primeira coisa. Igual, mas diferente
 
---
-
-```{r message=TRUE}
-message("Just a friendly message")
-```
-
---
-
-```{r warning=TRUE}
-warning("This could be bad...")
-```
-
---
-
-```{r error=TRUE}
-stop("I hope you're sitting down for this")
-```
-
-
----
-layout: true
-
-## Tables
-
----
-exclude: `r if (requireNamespace("tibble", quietly=TRUE)) "false" else "true"`
-
-```{r eval=requireNamespace("tibble", quietly=TRUE)}
-tibble::as_tibble(mtcars)
-```
-
----
-
-```{r}
-knitr::kable(head(mtcars), format = 'html')
-```
-
----
-exclude: `r if (requireNamespace("DT", quietly=TRUE)) "false" else "true"`
-
-```{r eval=requireNamespace("DT", quietly=TRUE)}
-DT::datatable(head(mtcars), fillContainer = FALSE, options = list(pageLength = 4))
-```
-
----
-layout: true
-
-## Lists
-
----
-
-.pull-left[
-#### Here is an unordered list:
-
-*   Item foo
-*   Item bar
-*   Item baz
-*   Item zip
-]
-
-.pull-right[
-
-#### And an ordered list:
-
-1.  Item one
-1.  Item two
-1.  Item three
-1.  Item four
-]
-
----
-
-### And a nested list:
-
-- level 1 item
-  - level 2 item
-  - level 2 item
-    - level 3 item
-    - level 3 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-
----
-
-### Nesting an ol in ul in an ol
-
-- level 1 item (ul)
-  1. level 2 item (ol)
-  1. level 2 item (ol)
-    - level 3 item (ul)
-    - level 3 item (ul)
-- level 1 item (ul)
-  1. level 2 item (ol)
-  1. level 2 item (ol)
-    - level 3 item (ul)
-    - level 3 item (ul)
-  1. level 4 item (ol)
-  1. level 4 item (ol)
-    - level 3 item (ul)
-    - level 3 item (ul)
-- level 1 item (ul)
-
----
-layout: true
-
-## Plots
-
----
-
-```{r plot-example, eval=requireNamespace("ggplot2", quietly=TRUE)}
-library(ggplot2)
-(g <- ggplot(mpg) + aes(hwy, cty, color = class) + geom_point())
-```
-
----
-
-```{r plot-example-themed, eval=requireNamespace("showtext", quietly=TRUE) && requireNamespace("ggplot2", quietly=TRUE)}
-g + xaringanthemer::theme_xaringan(text_font_size = 16, title_font_size = 18) +
-  ggtitle("A Plot About Cars")
-```
-
-.footnote[Requires `{showtext}`]
-
----
-layout: false
-
-## Square image
-
-<center><img src="https://octodex.github.com/images/labtocat.png" alt="GithHub Octocat" height="400px" /></center>
-
-.footnote[GitHub Octocat]
-
----
-
-### Wide image
-
-![A wide image with a diagram of branching in git.](https://docs.github.com/assets/images/help/repository/branching.png)
-
-.footnote[Wide images scale to 100% slide width]
-
----
-
-## Two images
-
-.pull-left[
-![A GitHub Octocat, style "mother hubber"](https://octodex.github.com/images/motherhubbertocat.png)
-]
-
-.pull-right[
-![A GitHub Octocat, style "dinotcat"](https://octodex.github.com/images/dinotocat.png)
-]
-
----
-
-### Definition lists can be used with HTML syntax.
-
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
-
----
-class: center, middle
-
-# Thanks!
-
-Slides created via the R packages:
-
-[**xaringan**](https://github.com/yihui/xaringan)<br>
-[gadenbuie/xaringanthemer](https://github.com/gadenbuie/xaringanthemer)
-
-The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](http://yihui.name/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
 
 ---
 ## Referências
