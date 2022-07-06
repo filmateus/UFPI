@@ -41,7 +41,7 @@ style_duo_accent(
   title_slide_background_image = "https://www.infoescola.com/wp-content/uploads/2016/05/ufpi.png",
   title_slide_background_size = "50",
   title_slide_background_position = "bottom 0px right 00px;",
-  header_font_google = google_font("Poppins")
+  header_font_google = google_font("Roboto")
 )
 ```
 
@@ -73,11 +73,11 @@ knitr::include_graphics('https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdo
 
 - O R Markdown foi desenvolvido em 2004 por John Gruber e Aaron Swartz para simplificar a estruturação de um texto.
 
-- É uma ferramenta perfeita para transformar suas análises em documentos, relatórios, apresentações e até mesmo dashboards de alta qualidade e de maneira programática;
+- É uma ferramenta para transformar suas análises em documentos, relatórios, apresentações e dashboards de alta qualidade e de maneira programática;
 
-- Facilita a reprodução de resultados, visto que tanto código quanto narrativa estão no documento, e os resultados são automaticamente gerados do código presente no documento.
+- Facilita a reprodução de resultados, visto que tanto código quanto narrativa estão no documento, e os resultados são gerados do código presente no documento.
 
-- O R Markdown suporta dezenas de formatos de saídas estáticas e dinâmicas, incluindo HTML, PDF, MS Word, Beamer, slides HTML5, estilo Tufte, livros, dashboards, aplicativos, artigos científicos, sites e outras coisas a mais.
+- O R Markdown suporta  formatos cpmo HTML, PDF, MS Word, Beamer, slides HTML5, estilo Tufte, livros, dashboards, aplicativos, artigos científicos, sites, etc.
 
 ]
 ---
@@ -178,6 +178,7 @@ Cabeçalhos de capítulos (seções) e subcapítulos são criadas de maneira hie
   - Outra coisa dentro da coisa
 
 --
+
 #### Lista Ordenada
 
 1. 1ª coisa
@@ -221,6 +222,11 @@ Uma linha foi acrescentada
 
 ---
 # Chunks
+
+```{r echo = FALSE}
+
+knitr::include_graphics('D:/OneDrive/DEV/UFPI-1/Rmarkdown/Captura de Tela (156).png')
+```
 
 Os códigos são embutidos no texto por meio das CodeChunks.
 
