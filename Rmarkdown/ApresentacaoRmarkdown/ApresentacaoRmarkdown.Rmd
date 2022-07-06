@@ -41,7 +41,7 @@ style_duo_accent(
   title_slide_background_image = "https://www.infoescola.com/wp-content/uploads/2016/05/ufpi.png",
   title_slide_background_size = "50",
   title_slide_background_position = "bottom 0px right 00px;",
-  header_font_google = google_font("Source Code Pro")
+  header_font_google = google_font("Poppins")
 )
 ```
 
@@ -62,23 +62,22 @@ knitr::include_graphics('https://www.r-project.org/Rlogo.png')
 
 # O que é o R Markdown
 
-.left-column[
-```{r fig.align='center', out.width= '80%', echo=FALSE}
+.pull-left[
+```{r fig.align='center', out.width= '70%', echo=FALSE}
 knitr::include_graphics('https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdown.png')
 ```
+
 ]
 
-.right-column[
+.pull-right[
 
-- Resumidamente:
+- O R Markdown foi desenvolvido em 2004 por John Gruber e Aaron Swartz para simplificar a estruturação de um texto.
 
-  - O R Markdown foi desenvolvido em 2004 por John Gruber e Aaron Swartz para simplificar a estruturação de um texto.
+- É uma ferramenta perfeita para transformar suas análises em documentos, relatórios, apresentações e até mesmo dashboards de alta qualidade e de maneira programática;
 
-  - É uma ferramenta perfeita para transformar suas análises em documentos, relatórios, apresentações e até mesmo dashboards de alta qualidade e de maneira programática;
+- Facilita a reprodução de resultados, visto que tanto código quanto narrativa estão no documento, e os resultados são automaticamente gerados do código presente no documento.
 
-  - Facilita a reprodução de resultados, visto que tanto código quanto narrativa estão no documento, e os resultados são automaticamente gerados do código presente no documento.
-
-  - O R Markdown suporta dezenas de formatos de saídas estáticas e dinâmicas, incluindo HTML, PDF, MS Word, Beamer, slides HTML5, estilo Tufte, livros, dashboards, aplicativos, artigos científicos, sites e outras coisas a mais.
+- O R Markdown suporta dezenas de formatos de saídas estáticas e dinâmicas, incluindo HTML, PDF, MS Word, Beamer, slides HTML5, estilo Tufte, livros, dashboards, aplicativos, artigos científicos, sites e outras coisas a mais.
 
 ]
 ---
@@ -151,7 +150,7 @@ sintaxes são:
 
 # Cabeçalhos
 
-Cabeçalhos de capítulos (seções) e subcapítulos são criadas de maneira hierárquica, de acordo com a quantidade de jogos-da-velha(hashtags) usados. Quanto maior o número, menor a hierarquia
+Cabeçalhos de capítulos (seções) e subcapítulos são criadas de maneira hierárquica, de acordo com a quantidade de jogos-da-velha(hashtags) usados. Quanto maior o número, menor a hierarquia
 
 # # 1º Nível
 ## ## 2º Nível
@@ -162,15 +161,87 @@ Cabeçalhos de capítulos (seções) e subcapítulos são criadas de maneira hi
 
 ---
 
-# Lista e Citações
+# Listas
 
-Para adicionar listas é necessario ultilizar um * ou - e espaço antes da palavra.
+#### Para adicionar listas é necessario ultilizar um * ou - e espaço antes da palavra.
 
 - `-` Primeira coisa
 
-* `*` Primeira coisa. Igual, mas diferente
+* `*` Primeira coisa. Igual, mas diferente    
+
+--
+
+#### Lista com subitens: Para lista com subitem após dar enter é necessário dar quatro espaços ou `tab`.
+
+- Segunda coisa
+  - Uma coisa dentro da coisa
+  - Outra coisa dentro da coisa
+
+--
+#### Lista Ordenada
+
+1. 1ª coisa
+2. 2ª coisa
+3. 3ª coisa
+  1.  uma coisa dentro da coisa 3
+
+---
+
+# Paragráfo
+
+Se você escrever uma coisa e der enter, ele faz tudo como se fosse um mesmo
+parágrafo.
+
+Para ter um novo parágrafo, sempre salte uma linha.
+
+Aliás, se você der enter um monte de vezes, ele salta apenas uma linha!
+
+O certo é:
+
+```{r eval=FALSE}
+Algo mais ou menos
+
+\
+
+Uma linha foi acrescentada
+```
 
 
+Para separar utilizando uma linha na horizontal basta acrescentar três asteriscos, ***.
+
+
+```{r eval=FALSE}
+Algo mais ou menos
+
+***
+
+Uma linha foi acrescentada
+```
+
+
+---
+# Chunks
+
+Os códigos são embutidos no texto por meio das CodeChunks.
+
+Já o texto é inserido normalmente em forma de parágrafos fora dos Chunks sendo que precisa dar um "enter"entre os textos e os chunks. 
+
+Podemos personalizar as saídas dos chunks usando os codigos:
+
+--
+- **include = FALSE** -  Impede que o código e os resultados apareçam no arquivo acabado.
+
+--
+- **echo = FALSE** - Impede o código, mas não os resultados de aparecer no arquivo acabado.
+
+--
+- **message= FALSE** - Impede que mensagens geradas por código apareçam no arquivo acabado.
+
+--
+- **warning= FALSE** - Impede que avisos gerados pelo código apareçam no acabamento.
+
+--
+- **Fig.cap = "..."** - Adiciona uma legenda aos resultados gráficos.
 ---
 ## Referências
 
