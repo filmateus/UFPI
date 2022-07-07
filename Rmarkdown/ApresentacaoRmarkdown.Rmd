@@ -214,9 +214,9 @@ Aliás, se você der enter um monte de vezes, ele salta apenas uma linha!
 O certo é:
 
 ```{r eval=FALSE}
-#giAlgo mais ou menos
+#Algo mais ou menos
 
-\
+#\
 
 Uma linha foi acrescentada
 ```
@@ -333,7 +333,8 @@ knitr::include_graphics("https://media.giphy.com/media/HLB0nLA36GCCo6JuB5/giphy.
 ```
 
 ---
-#Formulas e Equações
+
+# Formulas e Equações
 
 Existem duas maneiras de escrever formulas e equações no Rmarkdown, são esses formatos o inline e na forma de blocos. Vamos mostrar aqui somente o de bloco, é bem simples sua utilização você só precisa adicionar no começo e no final da sua formula ou equação, o simbolo de dois cifrão `$`
 
@@ -353,6 +354,7 @@ $$
 
 
 - *link*: https://www.codecogs.com/latex/eqneditor.php?lang=pt-br
+
 ---
 
 # Formulas e Equações
@@ -413,6 +415,74 @@ ggplot()+
 aes(x = carat, y = price)+
 geom_point(alpha = 1, colour = "#FF961C")+
 theme_minimal()
+```
+
+---
+
+# Tabelas
+
+Há varias forma de gerar tabelas no R Markdown, usando pacotes.
+
+- Primeiro vamos mostrar com implementar um tabela sem uso de pacote é
+bem simples basta digitar:
+
+
+```{r eval = FALSE}
+| Nome | Sexo | Altura | Peso |
+|:---- | :--: |  ----: | ---- |
+|Amanda|  F   |  1.68  |  70  |
+|Carlos|  M   |  1.52  |  50  |
+|Luis  |  M   |  1.70  |  80  |
+```
+
+
+| Nome | Sexo | Altura | Peso |
+|:---- | :--: |  ----: | ---- |
+|Amanda|  F   |  1.68  |  70  |
+|Carlos|  M   |  1.52  |  50  |
+|Luis  |  M   |  1.70  |  80  |  
+
+
+
+Observe que os dois ponto( : ), indica o alinhamento nas colunas. Quando temos ( :—- ) o alinhamento será a esquerda, quando há (:—:) o alinhamento será centralizado e ( —-: ) significando alinhada à direita e por fim ( —-) que e está na opção padrão que é alinhada à esquerda.
+
+
+---
+# Tabelas
+
+Vamos mostrar dois pacotes para tabelas o knitr, e o DT.
+
+Para Tabelas interativas vamos usar o pacote DT, para isso basta ter instalado no R o pacote (install.packages("DT")), depois deve liberar o pacote (library(DT)) , para gerar a tabela vamos utilizar o banco de dados iris do próprio R.
+
+
+```{r}
+DT::datatable(iris, options = list(pageLength = 4, searching=FALSE))
+```
+---
+
+# Tabelas
+
+Agora vamos mostrar tabelas usando os pacote knitr incluindo a função kable.
+
+```{r}
+knitr::kable(iris[1:6,])
+```
+
+- Possíveis alterações
+```{r eval = FALSE}
+
+knitr::kable(iris[1:6,], align = 'lccrr', col.names = gsub("[.]", '_', names(iris)))
+```
+
+---
+# Tabelas
+
+- Resultado com as mudanças
+
+```{r}
+knitr::kable(iris[1:6,], align = 'lccrr', 
+                         col.names = gsub("[.]", '_', names(iris)),
+                         caption = 'Dados iris')
 ```
 
 ---
