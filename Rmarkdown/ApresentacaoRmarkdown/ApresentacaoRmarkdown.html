@@ -18,7 +18,7 @@ class: center, middle, inverse, title-slide
 ### Curso de Extensão em R
 ]
 .date[
-### 06 July,2022
+### 07 July,2022
 ]
 
 ---
@@ -80,6 +80,15 @@ name: colors
 
 - etc...
 
+
+---
+
+
+```r
+knitr::include_graphics('https://beatrizmilz.github.io/RStudio_Certification/img/concept_map2.png')
+```
+
+&lt;img src="https://beatrizmilz.github.io/RStudio_Certification/img/concept_map2.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -203,7 +212,7 @@ Uma linha foi acrescentada
 ---
 # Chunks
 
-&lt;img src="../Captura de Tela (156).png" width="100%" /&gt;
+&lt;img src="Captura de Tela (156).png" width="100%" style="display: block; margin: auto;" /&gt;
 
 Os códigos são embutidos no texto por meio das CodeChunks.
 
@@ -225,7 +234,183 @@ Podemos personalizar as saídas dos chunks usando os codigos:
 
 --
 - **Fig.cap = "..."** - Adiciona uma legenda aos resultados gráficos.
+
 ---
+
+# Chunks
+
+Caso você deseje que uma opção seja definida da mesma maneira para todos os chunks do documento, como para definir um tamanho padrão
+para os gráficos, ou impedi que os códigos apareçam no trabalho você pode criar um Chunks Global, é só adicionar no início do documento o
+argumento:
+
+### Exemplo de Configução global
+
+**Da apresentação**
+
+&lt;img src="Captura de Tela (157).png" width="100%" style="display: block; margin: auto;" /&gt;
+---
+
+# Inserindo Imagens
+
+**Há duas formas de inserir Imagens**
+
+- A primeira forma que vamos abordar é o utilizando o seguinte código:
+
+
+```r
+![](c:/endereço da imagem/nome.formato)
+```
+
+**O segundo código para adicionar figura que vamos mostrar é mais completo, pois ele alterar automaticamente o comando com base no formato de saída (HTML, PDF, WORD), as imagens nas saídas permanecem em alta resolução, ele também tem a opção de:**
+
+- Alinhar(fig.align)
+
+- Porcentagem de largura da página (out.width)
+
+- Tamanho em pixels (out.width)
+
+- Legenda (fig.cap) etc...
+
+
+
+```r
+knitr::include_graphics("diretorio/nome da imagem.formato")
+```
+
+---
+
+# Inserindo Imagens
+
+.pull-left[
+
+
+```r
+!['meme'](https://i.guim.co.uk/img/media/9fef7d73f3df638b16318a135ec3459932437fb5/0_480_2402_1441/master/2402.jpg?width=1020&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=80bcb579b3e1f6d8c9a93c9eb5b9d6a4)
+```
+
+!['meme'](https://i.guim.co.uk/img/media/9fef7d73f3df638b16318a135ec3459932437fb5/0_480_2402_1441/master/2402.jpg?width=1020&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=80bcb579b3e1f6d8c9a93c9eb5b9d6a4)
+]
+
+.pull-right[
+
+```r
+knitr::include_graphics("Screenshot.png")
+```
+
+&lt;img src="Screenshot.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Gifs
+
+
+```r
+knitr::include_graphics("https://media.giphy.com/media/HLB0nLA36GCCo6JuB5/giphy.gif")
+```
+
+&lt;img src="https://media.giphy.com/media/HLB0nLA36GCCo6JuB5/giphy.gif" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+#Formulas e Equações
+
+Existem duas maneiras de escrever formulas e equações no Rmarkdown, são esses formatos o inline e na forma de blocos. Vamos mostrar aqui somente o de bloco, é bem simples sua utilização você só precisa adicionar no começo e no final da sua formula ou equação, o simbolo de dois cifrão `$`
+
+- **Formulas**
+
+
+```r
+$$
+f(x) = \frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{1}{2}(\frac{x-u}{\sigma})^{2}}
+$$
+```
+--
+- **Saída**
+
+$$
+f(x) = \frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{1}{2}(\frac{x-u}{\sigma})^{2}}
+$$
+
+
+- *link*: https://www.codecogs.com/latex/eqneditor.php?lang=pt-br
+---
+
+# Formulas e Equações
+
+
+```r
+$$
+f(k) = {n \choose k} p^{k} (1-p)^{n-k}
+$$
+```
+
+$$
+f(k) = {n \choose k} p^{k} (1-p)^{n-k}
+$$
+
+
+
+```r
+$$
+\begin{array}{ccc}
+x_{11} &amp; x_{13} &amp; x_{13}\\
+x_{21} &amp; x_{22} &amp; x_{23}
+\end{array}
+$$
+```
+
+`$$\begin{array}{ccc}
+x_{11} &amp; x_{13} &amp; x_{13}\\
+x_{21} &amp; x_{22} &amp; x_{23}
+\end{array}$$`
+
+---
+
+# Gráficos
+
+Geramos gráficos nos chunks. As configurações dos gráficos são as mesma aprendidas nas imagens.  
+Como exemplo vamos expor um gráfico gerado com o pacote GGPlot2, o banco de dados usado sera o `diamonds`, ele é um conjunto de dados contendo os preços e outros atributos de quase 54.000 diamantes;  
+Para gerar nosso gráfico vamos escolher aleatoriamente 200 observações e duas  variáveis que são o preço e o quilates.
+
+- Código do gráfico
+
+
+```r
+diamonds %&gt;% 
+sample_n(200)|&gt;
+ggplot()+
+aes(x = carat, y = price)+
+geom_point(alpha = 1, colour = "#FF961C")+
+theme_minimal()
+```
+---
+
+# Gráficos
+
+- Saída
+
+&lt;img src="ApresentacaoRmarkdown_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Sumário e Tema
+
+Para incluir o sumário basta adicionar toc : yes logo após , para que a tabela com os conteúdos do sumário esteja na lateral é só adicionar `toc float: TRUE`.
+
+Você pode escolher um tema para seu documento usando theme: flatly, mas há várias opções de tema onde há modificações na cor e formato das palavras, tem temas sem pacotes e com pacotes alguns exemplos você encontra no site: 
+  
+- https://www.datadreaming.org/post/r-markdown-theme-gallery/
+
+
+Caso queira adicionar automaticamente a numeração dos títulos e subtítulos você pode usar number `sections: TRUE`, você também pode mudar a cor dos códigos para facilitar a visualização basta adicionar `highlight: tango`, há também vários outros tipos de cor para os códigos, você encontra alguns modelos no site:
+
+- https://eranraviv.com/syntax-highlighting-style-in-rmarkdown/
+
+- https://www.rstudio.com/resources/cheatsheets/
+
+---
+
 ## Referências
 
 - GOMES, Fellipe. Tabelas Incriveis com RDisponível em: https://gomesfellipe.github.io/post/2018-01-12-tabelas-incriveis-com-r/abelas-incriveis-com-r/, 2018. Acesso em: 24 de mai de 2021

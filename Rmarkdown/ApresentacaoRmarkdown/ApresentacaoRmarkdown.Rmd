@@ -15,6 +15,8 @@ output:
       highlightLines: true
       ratio: 16:9
       countIncrementalSlides: true
+header-includes:
+  - \usepackage[brazilian]{babel}
 ---
 
 ```{r setup, include=FALSE}
@@ -26,8 +28,13 @@ knitr::opts_chunk$set(
   echo = TRUE,
   message = FALSE,
   warning = FALSE,
-  hiline = TRUE
+  hiline = TRUE,
+  fig.align = 'center'
 )
+
+library(tidyverse)
+library(ggplot2)
+set.seed(410)
 ```
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
@@ -54,7 +61,7 @@ style_duo_accent(
 - fornece uma ampla variedade de técnicas estatísticas (modelagem linear e não linear, testes estatísticos clássicos, análise de séries temporais, classificação, agrupamento, …) e gráficas, e é altamente extensível
 
 
-```{r fig.align='center', out.width= '30%', echo=FALSE}
+```{r out.width= '30%', echo=FALSE}
 knitr::include_graphics('https://www.r-project.org/Rlogo.png')
 ```
 
@@ -63,7 +70,7 @@ knitr::include_graphics('https://www.r-project.org/Rlogo.png')
 # O que é o R Markdown
 
 .pull-left[
-```{r fig.align='center', out.width= '70%', echo=FALSE}
+```{r out.width= '70%', echo=FALSE}
 knitr::include_graphics('https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdown.png')
 ```
 
@@ -104,11 +111,18 @@ name: colors
 
 ---
 
+```{r}
+knitr::include_graphics('https://beatrizmilz.github.io/RStudio_Certification/img/concept_map2.png')
+
+```
+
+---
+
 # Gerando arquivo em PDF
 
 .left-column[
 
-```{r fig.align='center', out.width= '90%', echo=FALSE}
+```{r out.width= '90%', echo=FALSE}
 knitr::include_graphics("https://play-lh.googleusercontent.com/kIwlXqs28otssKK_9AKwdkB6gouex_U2WmtLshTACnwIJuvOqVvJEzewpzuYBXwXQQ")
 ```
 
@@ -247,7 +261,180 @@ Podemos personalizar as saídas dos chunks usando os codigos:
 
 --
 - **Fig.cap = "..."** - Adiciona uma legenda aos resultados gráficos.
+
 ---
+
+# Chunks
+
+Caso você deseje que uma opção seja definida da mesma maneira para todos os chunks do documento, como para definir um tamanho padrão
+para os gráficos, ou impedi que os códigos apareçam no trabalho você pode criar um Chunks Global, é só adicionar no início do documento o
+argumento:
+
+### Exemplo de Configução global
+
+**Da apresentação**
+
+```{r echo = FALSE}
+knitr::include_graphics('Captura de Tela (157).png')
+```
+---
+
+# Inserindo Imagens
+
+**Há duas formas de inserir Imagens**
+
+- A primeira forma que vamos abordar é o utilizando o seguinte código:
+
+```{r eval = FALSE}
+![](c:/endereço da imagem/nome.formato)
+
+```
+
+**O segundo código para adicionar figura que vamos mostrar é mais completo, pois ele alterar automaticamente o comando com base no formato de saída (HTML, PDF, WORD), as imagens nas saídas permanecem em alta resolução, ele também tem a opção de:**
+
+- Alinhar(fig.align)
+
+- Porcentagem de largura da página (out.width)
+
+- Tamanho em pixels (out.width)
+
+- Legenda (fig.cap) etc...
+
+
+```{r eval = FALSE}
+knitr::include_graphics("diretorio/nome da imagem.formato")
+```
+
+---
+
+# Inserindo Imagens
+
+.pull-left[
+
+```{r eval = FALSE}
+!['meme'](https://i.guim.co.uk/img/media/9fef7d73f3df638b16318a135ec3459932437fb5/0_480_2402_1441/master/2402.jpg?width=1020&quality=45&auto=format&fit=max&dpr=2&s=80bcb579b3e1f6d8c9a93c9eb5b9d6a4)
+```
+
+!['meme'](https://i.guim.co.uk/img/media/9fef7d73f3df638b16318a135ec3459932437fb5/0_480_2402_1441/master/2402.jpg?width=1020&quality=45&auto=format&fit=max&dpr=2&s=80bcb579b3e1f6d8c9a93c9eb5b9d6a4)
+]
+
+.pull-right[
+```{r out.width= '70%', fig.align= 'center'}
+knitr::include_graphics("Screenshot.png")
+```
+
+]
+
+---
+
+# Gifs
+
+```{r out.width= '40%'}
+knitr::include_graphics("https://media.giphy.com/media/HLB0nLA36GCCo6JuB5/giphy.gif")
+```
+
+---
+#Formulas e Equações
+
+Existem duas maneiras de escrever formulas e equações no Rmarkdown, são esses formatos o inline e na forma de blocos. Vamos mostrar aqui somente o de bloco, é bem simples sua utilização você só precisa adicionar no começo e no final da sua formula ou equação, o simbolo de dois cifrão `$`
+
+- **Formulas**
+
+```{r eval = FALSE}
+$$
+f(x) = \frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{1}{2}(\frac{x-u}{\sigma})^{2}}
+$$
+```
+--
+- **Saída**
+
+$$
+f(x) = \frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{1}{2}(\frac{x-u}{\sigma})^{2}}
+$$
+
+
+- *link*: https://www.codecogs.com/latex/eqneditor.php?lang=pt-br
+---
+
+# Formulas e Equações
+
+```{r eval = FALSE}
+$$
+f(k) = {n \choose k} p^{k} (1-p)^{n-k}
+$$
+```
+
+$$
+f(k) = {n \choose k} p^{k} (1-p)^{n-k}
+$$
+
+
+```{r eval = FALSE}
+$$
+\begin{array}{ccc}
+x_{11} & x_{13} & x_{13}\\
+x_{21} & x_{22} & x_{23}
+\end{array}
+$$
+```
+
+$$\begin{array}{ccc}
+x_{11} & x_{13} & x_{13}\\
+x_{21} & x_{22} & x_{23}
+\end{array}$$
+
+---
+
+# Gráficos
+
+Geramos gráficos nos chunks. As configurações dos gráficos são as mesma aprendidas nas imagens.  
+Como exemplo vamos expor um gráfico gerado com o pacote GGPlot2, o banco de dados usado sera o `diamonds`, ele é um conjunto de dados contendo os preços e outros atributos de quase 54.000 diamantes;  
+Para gerar nosso gráfico vamos escolher aleatoriamente 200 observações e duas  variáveis que são o preço e o quilates.
+
+- Código do gráfico
+
+```{r eval = FALSE}
+diamonds %>% 
+sample_n(200)|>
+ggplot()+
+aes(x = carat, y = price)+
+geom_point(alpha = 1, colour = "#FF961C")+
+theme_minimal()
+```
+---
+
+# Gráficos
+
+- Saída
+
+```{r echo = FALSE}
+diamonds %>% 
+sample_n(200)|>
+ggplot()+
+aes(x = carat, y = price)+
+geom_point(alpha = 1, colour = "#FF961C")+
+theme_minimal()
+```
+
+---
+
+# Sumário e Tema
+
+Para incluir o sumário basta adicionar toc : yes logo após , para que a tabela com os conteúdos do sumário esteja na lateral é só adicionar `toc float: TRUE`.
+
+Você pode escolher um tema para seu documento usando theme: flatly, mas há várias opções de tema onde há modificações na cor e formato das palavras, tem temas sem pacotes e com pacotes alguns exemplos você encontra no site: 
+  
+- https://www.datadreaming.org/post/r-markdown-theme-gallery/
+
+
+Caso queira adicionar automaticamente a numeração dos títulos e subtítulos você pode usar number `sections: TRUE`, você também pode mudar a cor dos códigos para facilitar a visualização basta adicionar `highlight: tango`, há também vários outros tipos de cor para os códigos, você encontra alguns modelos no site:
+
+- https://eranraviv.com/syntax-highlighting-style-in-rmarkdown/
+
+- https://www.rstudio.com/resources/cheatsheets/
+
+---
+
 ## Referências
 
 - GOMES, Fellipe. Tabelas Incriveis com RDisponível em: https://gomesfellipe.github.io/post/2018-01-12-tabelas-incriveis-com-r/abelas-incriveis-com-r/, 2018. Acesso em: 24 de mai de 2021
