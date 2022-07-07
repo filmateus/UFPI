@@ -224,8 +224,7 @@ Uma linha foi acrescentada
 # Chunks
 
 ```{r echo = FALSE}
-
-knitr::include_graphics('D:/OneDrive/DEV/UFPI-1/Rmarkdown/Captura de Tela (156).png')
+knitr::include_graphics('Captura de Tela (156).png')
 ```
 
 Os códigos são embutidos no texto por meio das CodeChunks.
