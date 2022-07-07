@@ -214,7 +214,7 @@ Aliás, se você der enter um monte de vezes, ele salta apenas uma linha!
 O certo é:
 
 ```{r eval=FALSE}
-Algo mais ou menos
+#giAlgo mais ou menos
 
 \
 
@@ -232,7 +232,7 @@ Algo mais ou menos
 
 Uma linha foi acrescentada
 ```
-
+teste
 
 ---
 # Chunks
