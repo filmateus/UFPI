@@ -52,6 +52,38 @@ style_duo_accent(
 )
 ```
 
+# Resumo da Aula
+
+- Introdução:  
+  - O que é R Markdown
+
+--
+
+- Rmarkdown no Rstudio
+
+--
+
+- Formatação básica de texto  
+  - Cabeçalhos
+  - Listas e Citações
+--
+
+- Trechos de código  
+  - Chunks
+
+--
+
+- Inserindo Imagens
+
+--
+
+- Formulas e equações
+
+--
+
+- Gráficos
+
+---
 # Introdução
 
 ## O que é o R?
@@ -84,11 +116,18 @@ knitr::include_graphics('https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdo
 
 - Facilita a reprodução de resultados, visto que tanto código quanto narrativa estão no documento, e os resultados são gerados do código presente no documento.
 
-- O R Markdown suporta  formatos cpmo HTML, PDF, MS Word, Beamer, slides HTML5, estilo Tufte, livros, dashboards, aplicativos, artigos científicos, sites, etc.
+- O R Markdown suporta  formatos como HTML, PDF, MS Word, Beamer, slides HTML5, estilo Tufte, livros, dashboards, aplicativos, artigos científicos, sites, etc.
 
 ]
 ---
-name: colors
+
+# R markdown
+
+```{r out.width= '45%', echo=FALSE}
+knitr::include_graphics('https://beatrizmilz.github.io/slidesR/img/rmarkdown/markdown.png')
+
+```
+---
 
 # O que é o R Markdown
 
@@ -111,9 +150,44 @@ name: colors
 
 ---
 
-```{r}
+# R markdown
+
+```{r out.width= '70%', echo=FALSE}
 knitr::include_graphics('https://beatrizmilz.github.io/RStudio_Certification/img/concept_map2.png')
 
+```
+
+
+---
+# Rstudio Cloud
+
+- É uma versão virtual do `Rstudio`, onde podemos utilizar o programa através do navegador
+
+```{r echo = FALSE, out.width= '70%'}
+knitr::include_graphics('https://cdn.rstudio.com/cloud/cloud.jpg')
+
+```
+
+- Link de acesso: https://rstudio.cloud/
+---
+
+# R markdown
+
+- **Criando um documento**
+
+
+```{r echo = FALSE, out.width= '60%'}
+knitr::include_graphics('Captura de Tela (159).png')
+```
+
+---
+
+# R markdown
+
+- **Criando um documento**
+
+```{r echo = FALSE, out.width= '60%'}
+knitr::include_graphics('Captura de Tela (160).png')
 ```
 
 ---
@@ -152,8 +226,7 @@ sintaxes são:
 -  Textos em **negrito** são produzidos com dois pares de asteriscos: ∗∗Negrito∗∗
 
 -  Um par de acentos til produz texto subscrito: CO ∼ 2 ∼ vira CO~2
-  - Outro forma é usando o formato usando $ CO_{2} $ , $CO_{2}$
-
+  - Outro forma é usando o formato usando $ CO_{2} $ , $Co_{2}$
 
 - Um par de acentos circunflexos produz texto sobrescrito x^ 2^, vira x^2^.
   - Outro forma é usando o formato usando $ x^{2} $, $x^{2}$ 
@@ -202,7 +275,7 @@ Cabeçalhos de capítulos (seções) e subcapítulos são criadas de maneira hie
 
 ---
 
-# Paragráfo
+# Parágrafo
 
 Se você escrever uma coisa e der enter, ele faz tudo como se fosse um mesmo
 parágrafo.
@@ -214,9 +287,9 @@ Aliás, se você der enter um monte de vezes, ele salta apenas uma linha!
 O certo é:
 
 ```{r eval=FALSE}
-#Algo mais ou menos
+Algo mais ou menos
 
-#\
+\
 
 Uma linha foi acrescentada
 ```
@@ -242,9 +315,9 @@ knitr::include_graphics('Captura de Tela (156).png')
 
 Os códigos são embutidos no texto por meio das CodeChunks.
 
-Já o texto é inserido normalmente em forma de parágrafos fora dos Chunks sendo que precisa dar um "enter"entre os textos e os chunks. 
+Já o texto é inserido normalmente em forma de parágrafos fora dos Chunks sendo que precisa dar um "enter" entre os textos e os chunks. 
 
-Podemos personalizar as saídas dos chunks usando os codigos:
+Podemos personalizar as saídas dos chunks usando os codigos: 'https://www.rstudio.com/resources/cheatsheets/'
 
 --
 - **include = FALSE** -  Impede que o código e os resultados apareçam no arquivo acabado.
@@ -253,10 +326,10 @@ Podemos personalizar as saídas dos chunks usando os codigos:
 - **echo = FALSE** - Impede o código, mas não os resultados de aparecer no arquivo acabado.
 
 --
-- **message= FALSE** - Impede que mensagens geradas por código apareçam no arquivo acabado.
+- **message = FALSE** - Impede que mensagens geradas por código apareçam no arquivo acabado.
 
 --
-- **warning= FALSE** - Impede que avisos gerados pelo código apareçam no acabamento.
+- **warning = FALSE** - Impede que avisos gerados pelo código apareçam no acabamento.
 
 --
 - **Fig.cap = "..."** - Adiciona uma legenda aos resultados gráficos.
@@ -276,6 +349,9 @@ argumento:
 ```{r echo = FALSE}
 knitr::include_graphics('Captura de Tela (157).png')
 ```
+
+- `CRTL + Alt + I` funciona como atalho para adicionar um Chunk
+
 ---
 
 # Inserindo Imagens
@@ -353,7 +429,8 @@ f(x) = \frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{1}{2}(\frac{x-u}{\sigma})^{2}}
 $$
 
 
-- *link*: https://www.codecogs.com/latex/eqneditor.php?lang=pt-br
+- *Para facilitar editar uma fórmula ou equação você pode entrar no site*: 
+  - https://www.codecogs.com/latex/eqneditor.php?lang=pt-br
 
 ---
 
@@ -415,6 +492,17 @@ ggplot()+
 aes(x = carat, y = price)+
 geom_point(alpha = 1, colour = "#FF961C")+
 theme_minimal()
+```
+
+---
+
+# Gráficos interativos 
+
+- Para HTML
+
+```{r fig.cap = 'Gráficos para apresentações interativas. Fonte: https://plotly.com/r/3d-surface-plots/'}
+# volcano is a numeric matrix that ships with R
+plotly::plot_ly(z = ~volcano)|> plotly::add_surface()
 ```
 
 ---
@@ -485,6 +573,7 @@ knitr::kable(iris[1:6,], align = 'lccrr',
                          caption = 'Dados iris')
 ```
 
+
 ---
 
 # Sumário e Tema
@@ -501,6 +590,18 @@ Caso queira adicionar automaticamente a numeração dos títulos e subtítulos v
 - https://eranraviv.com/syntax-highlighting-style-in-rmarkdown/
 
 - https://www.rstudio.com/resources/cheatsheets/
+
+---
+
+class: center, middle
+
+# Obrigado!!!
+
+```{r out.width= '30%', echo=FALSE}
+
+knitr::include_graphics('https://media.giphy.com/media/Vt0I2Edms3AeFVwBKe/giphy.gif')
+
+```
 
 ---
 
