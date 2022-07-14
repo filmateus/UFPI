@@ -1,0 +1,26 @@
+---
+title: ""
+author: ""
+format:
+  pdf:
+    colorlinks: true
+    keep-tex: true
+header-includes:
+  - \usepackage{float}
+  - \restylefloat{table}
+
+#editor: visual
+---
+
+
+**3ª LISTA**
+
+**Nome:** Filipe Costa
+
+
+
+```{r}
+
+
+
+```

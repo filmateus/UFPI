@@ -1,0 +1,106 @@
+---
+title: ""
+author: ""
+format:
+  pdf:
+    colorlinks: true
+    keep-tex: true
+header-includes:
+  - \usepackage{float}
+  - \restylefloat{table}
+
+#editor: visual
+---
+
+
+**2ª LISTA**
+
+**Nome:** Filipe Costa
+
+
+# 1 
+
+\newpage
+
+# 2
+
+- **Informações**
+    - n = 400
+    - 40% possuíam indústrias próximas operantes
+    - Probabilidade da amostra acusar contaminação do rio, com indústrias próximas é de 60%
+    - A probabilidade em locais sem indústrias próximas é 20 %
+
+
+## a
+
+
+```{r }
+table2 = data.frame("Distância de uma indústria " = c('Próximo a indústria', 
+                                                      'Longe da indústria'),
+                    'S' = c(96, 48), 
+                    'N' = c(64, 192),
+                    check.names = FALSE)
+
+
+table2 |> 
+dplyr::mutate(Total = S + N)|>
+janitor::adorn_totals("row")|>
+kableExtra::kbl(booktabs = T, align = "cccc")|>
+kableExtra::add_header_above(c(" ", 'Chance de contaminação' = 2, " "))
+```
+
+O estudo apresentado pode ser indicado como deliniamento `transversal`, a caracteristica deste procedimento é captação dos dados no pontos de coleta num respectivo período no tempo e, aparetemente, consiste no que foi realizado na pesquisa, selecionado pontos para retirada de amostras de água. 
+
+Não há indicação de restrição do tamanho da amostra, foram selecionados 400 pontos independete da proximidade de insdustria ou não. O cálculo da distância para uma fábrica foi medida depois. Pela `liberdade` da amostragem, temos um modelo probabilístico baseado no `Produto Poisson`
+
+
+## b
+
+Os testes para o estudo das amostras nos rios devem analisar a indepedência da associação entre variável explicativa e a variável resposta, que são nesse caso:
+
+- Variavel explicativa: **Proximidade do ponto de coleta para uma industria**
+- Variavel resposta: **Índice de contaminação**
+
+Diante do contexto, podemos realizar um teste de hipótese com as seguinte hipoteses:
+
+- $H_{0}$: a distância para uma fábrica não influência na qualidade da água.
+- $H_{1}$: a distância para uma fábrica influência na qualidade da água.
+
+
+O teste indicado para indepedência é o ${\chi}^2$ que, resumidamente, compara o valor registrado na tabela com o valor esperado. A diferença dos valores influência no resultado.
+
+Usando a função em R, temos:
+
+
+```{r}
+mat = matrix(c(96, 48, 64, 192), 2,2, byrow = T )
+chisq.test(mat)
+```
+
+Com o Resultado apresentado, temos evidencias para afirmar que a distância para uma fáblica influencia na qualidade da água.
+
+
+## c 
+
+```{r}
+
+```
+
+
+
+# 3
+
+- **Informações**'
+  - n = 381
+  - 127 crianças com morte devido a infecção respiratória
+  - 254 em caso de controle
+  - **Fatores de risco relacionados com a mortalidade**:
+    - nível socieconômico
+    - grau de escolaridade
+    - tipo de aleitamento
+    - baixo peso ao nascer
+    - idade
+
+## a 
+
+
