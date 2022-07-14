@@ -119,6 +119,7 @@ knitr::include_graphics('https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdo
 - O R Markdown suporta  formatos como HTML, PDF, MS Word, Beamer, slides HTML5, estilo Tufte, livros, dashboards, aplicativos, artigos científicos, sites, etc.
 
 ]
+
 ---
 
 # R markdown
@@ -127,6 +128,15 @@ knitr::include_graphics('https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdo
 knitr::include_graphics('https://beatrizmilz.github.io/slidesR/img/rmarkdown/markdown.png')
 
 ```
+---
+
+# R markdown
+
+```{r ,  fig.cap = "Fonte: 'https://beatrizmilz.github.io/'", out.width= '60%', echo=FALSE}
+knitr::include_graphics('https://beatrizmilz.github.io/RStudio_Certification/img/concept_map2.png')
+
+```
+
 ---
 
 # O que é o R Markdown
@@ -150,15 +160,7 @@ knitr::include_graphics('https://beatrizmilz.github.io/slidesR/img/rmarkdown/mar
 
 ---
 
-# R markdown
 
-```{r out.width= '70%', echo=FALSE}
-knitr::include_graphics('https://beatrizmilz.github.io/RStudio_Certification/img/concept_map2.png')
-
-```
-
-
----
 # Rstudio Cloud
 
 - É uma versão virtual do `Rstudio`, onde podemos utilizar o programa através do navegador
