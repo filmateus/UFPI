@@ -3,7 +3,6 @@ title: "Conhecendo Rmarkdown"
 subtitle: ""  
 author: 
   - "Curso de Extensão em R"
-  #- "Garrick Aden-Buie"
 date: '`r format(Sys.Date(), "%d %B,%Y")`'
 encoding: "UTF-8"
 output:
@@ -47,7 +46,7 @@ style_duo_accent(
   title_slide_text_color = "#000000",
   title_slide_background_image = "https://www.infoescola.com/wp-content/uploads/2016/05/ufpi.png",
   title_slide_background_size = "50",
-  title_slide_background_position = "bottom 0px right 00px;",
+  title_slide_background_position = "bottom",
   header_font_google = google_font("Roboto")
 )
 ```
@@ -128,6 +127,7 @@ knitr::include_graphics('https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdo
 knitr::include_graphics('https://beatrizmilz.github.io/slidesR/img/rmarkdown/markdown.png')
 
 ```
+
 ---
 
 # R markdown
@@ -216,7 +216,64 @@ tinytex::install_tinytex()
 O `TinyTeX` é uma distribuição LaTeX personalizada baseada no TeX Live que é pequeno em tamanho (cerca de 61 MB no macOS / Linux e 94 MB no Windows quando (g) compactado), mas funciona bem na maioria dos casos, especialmente para usuários R.
 
 ]
+
 ---
+
+# YAML
+
+-É o responsável pelas configurações dos documentos. Basicamente, estamos informando qual é o título do documento, a data de criação, o nome do autor e o tipo de output que desejamos
+
+
+```{r eval = FALSE}
+title: "Conhecendo Rmarkdown"
+subtitle: ""  
+author: 
+  - "Curso de Extensão em R"
+date: '`r format(Sys.Date(), "%d %B,%Y")`'
+encoding: "UTF-8"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+header-includes:
+  - \usepackage[brazilian]{babel}
+```
+
+---
+
+# YAML
+
+```{r eval = FALSE}
+
+title: ''
+encoding: "UTF-8"
+output:
+  pdf_document:
+    number_sections: TRUE
+    keep_tex: TRUE
+    latex_engine: pdflatex
+geometry: "left = 2.5cm, right = 2cm, top = 2cm, bottom = 2cm"
+fontsize: 11pt
+header-includes:
+  - \usepackage{float}
+  - \usepackage{sectsty}
+  - \usepackage{paralist}
+  - \usepackage{setspace}\spacing{1.5}
+  - \usepackage{palatino}
+  - \usepackage{tabularx}
+  - \usepackage[brazilian]{babel}
+  - \newcommand\tab[1][1cm]{\hspace*{#1}}
+  - \newunicodechar{≤}{\ensuremath{\leq}}
+  - \newunicodechar{≥}{\ensuremath{\geq}}
+```
+
+---
+
 
 # Formatação de texto
 
