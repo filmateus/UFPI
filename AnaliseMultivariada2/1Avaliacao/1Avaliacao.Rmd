@@ -1,0 +1,379 @@
+---
+title: "1ª Avaliação"
+subtitle: "Análise de Dados via Métodos Multivariados"  
+author: 
+  - "Edvaldo Sampaio & Filipe Costa"
+date: '`r format(Sys.Date(), "%d %B,%Y")`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=8, fig.height=4, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#fda54c",
+  secondary_color = "#ff6e00",
+  inverse_header_color = "#2e0303",
+  title_slide_background_image ="https://www.infoescola.com/wp-content/uploads/2016/05/ufpi.png",
+  title_slide_background_size = "100",
+  title_slide_background_position = "bottom",
+  header_font_google = google_font("Roboto")
+)
+```
+
+# Dados
+
+- Iremos utilizar o banco de dados **mtcars**. Os dados foram extraídos da revista `Motor Trend US` de 1974 e se referem ao consumo de combustível e 10 características de 32 automóveis (modelos de 1973 a 1974).
+
+```{r }
+df = dados::mtcarros[, 1:7]; df|> DT::datatable(options = list(pageLength = 4))
+#head(6)|>knitr::kable()
+```
+
+---
+
+# Medidas descritivas
+
+```{r }
+psych::describe(df)[,c(-1,-2)]|>round(3)|> knitr::kable()
+```
+
+---
+
+# Teste de esferecidade de Bartlett
+
+- O teste a hipótese que as variáveis não sejam relacionadas:
+
+$${\chi}^2 = -[(n-1) - \frac{2p - 5}{6}] ln|R|, v = \frac{p(p-1)}{2}$$
+
+- $H_{0}$ = a matriz de covariância é similar a uma matriz identidade (sem correlação)
+- $H_{1}$ = a matriz de covariância não é similar a uma matriz identidade (possui correlação)
+
+Construindo um função no  R:
+```{r eval = TRUE}
+bartlett = function(M){
+    n = dim(M)[1]; p = dim(M)[2]
+    R = det(cor(M)); v = (p*(p-1))/2
+    value = -((n-1) - (2*p+5)/6)*log(R)
+    QuiQuadrado = 1-  pchisq(value, v)
+    print(list(
+    sprintf(paste('Estatísica de Barlett:', round(value,3))),
+    sprintf(paste('p-valor:', round(QuiQuadrado,3)))
+    ))
+}
+```
+
+---
+
+# Teste de esferecidade de Bartlett
+
+- `Com R com Função própria`
+
+```{r echo = FALSE}
+M= df
+bartlett = function(M){
+    n = dim(M)[1]
+    p = dim(M)[2]
+    R = det(cor(M))
+    value = -((n-1) - (2*p+5)/6)*log(R)
+    v = (p*(p-1))/2
+    QuiQuadrado = (1 - pchisq(value, v))
+    print(list(
+    sprintf(paste('Estatísica de Barlett:', round(value,3))),
+    sprintf(paste('p-valor:', round(QuiQuadrado,3)))
+    ))
+}
+bartlett(df)
+```
+
+- `Com função específica do pacote MVTests`
+
+```{r}
+results = MVTests::Bsper(data = df)
+results$Chisq
+results$p.value
+```
+
+
+- Temos evidências para afirmar que `existe correlação` entre as variáveis
+
+---
+
+# KMO
+
+- Medida de adequabilidade: é um teste estatístico que sugere a proporção de variância dos itens que pode estar sendo explicada por uma variável latente, indicando se é adequado aplicação de PCA e Fatorial nos dados.
+
+```{r}
+KmoDF = psych::KMO(df); KmoDF
+```
+
+- O índide do `KMO` é de `r round(KmoDF$MSA, 2)`, indicando um bom resultado, dessa forma temos a possibilidade de aplicar de métodos multivariados.
+
+---
+
+#  Matriz de Correlação
+
+```{r}
+c = cor(df); c|>round(3)|>knitr::kable()
+```
+Esta tabela será a base para os cálculos de `Componentes Principais` e `Análise Fatorial`
+---
+
+# Medidas algébricas
+
+```{r}
+autos = eigen(c); autos$values|>round(3) # autovalores
+autos$vectors|>round(3)|>knitr::kable() # autovetores
+```
+
+---
+
+# Componentes Principais
+
+Técnica da estatística multivariada que consiste em transformar um conjunto de variáveis originais em outro conjunto de variáveis de mesma dimensão denominadas de `componentes principais`.
+
+-  Cada componente principal é uma combinação linear de todas as variáveis originais.
+
+-  Os componente são independentes entre si e estimados com o propósito de reter, em ordem de estimação, o máximo de informação, em termos da variação total contida nos dados
+
+Os Objetivos são:
+
+- **Identificação de padrões ocultos dos dados**;
+
+- **Redução de dimensionalidade, pela diminuição da redundância nos dados**;
+
+- **Identificar variáveis correlacionadas**.
+
+---
+
+# Medidas algébricas - análise
+
+## Componentes Principais
+
+- $Y1 = 0.413X1 - 0.425X2 -0.423X3 -0.388X4 + 0.331X5 -0.391X6 + 0.240X7$
+- $Y2 =-0.083X1 - 0.078X2 + 0.082X3 - 0.337X4 - 0.449X5 + 0.322X6 + 0.749X7$
+- $Y3 = 0.242X1 + 0.188X2 - 0.118X3 - 0.203X4 - 0.755X5 - 0.441X6 - 0.294X7$
+- $Y4 = 0.767X1 + 0.194X2 + 0.588X3 - 0.007X4 + 0.117X5 + 0.107X6 - 0.061X7$
+- $Y5 = -0.213X1 + 0.238X2 + 0.149X3 -0.831X4 - 0.222X5 - 0.167X6 - 0.328X7$
+- $Y6 = -0.090X1 + 0.781X2 - 0.162X3 + 0.046X4 + 0.233X5 - 0.366X6 + 0.407X7$
+- $Y7 = -0.351X1 - 0.273X2 + 0.638X3 - 0.039X4 + 0.037X5 - 0.613X6 + 0.131X7$
+
+### Variancia explicada a partir do maior autovalor(componente)
+```{r}
+PVTE1 = round(autos$values,3)/sum(round(autos$values,3));round(PVTE1*100,3)
+```
+
+---
+
+##  Análise por Componentes Principais
+
+###### Usando a função `prcomp`, do pacote base do `r`
+
+```{r}
+PCAdf = princomp(df, cor = TRUE); PCAdf$sdev|>round(3)
+```
+
+```{r}
+summary(PCAdf)
+```
+
+---
+
+##  Análise por Componentes Principais
+#### Escores
+
+```{r}
+PCAdf$scores[,1:2]|>round(3)|> DT::datatable(options = list(pageLength = 6))
+```
+
+---
+
+##  Análise por Componentes Principais
+
+```{r fig.align="center", , out.width= '90%', echo = FALSE}
+plot(PCAdf, col = "#ff6e00", main = 'Componentes Principais')
+```
+
+---
+
+##  Análise por Componentes Principais
+
+```{r fig.align="center", out.width= '100%',  echo = FALSE}
+biplot(PCAdf, col =  c("#ff6e00", "#2e0303"), cex = rep(par("cex"), 3))
+#knitr::include_graphics("000010.png")
+```
+
+---
+
+##  Componentes Principais - Pacote `FactoMineR`
+
+```{r echo = FALSE, out.width= '60%'}
+PCAdf1 = FactoMineR::PCA(df, graph=FALSE); PCAdf1
+```
+---
+
+##  Componentes Principais - Pacote `FactoMineR`
+
+```{r fig.align="center", out.width= '75%'}
+factoextra::fviz_eig(PCAdf1, addlabels = TRUE, barfill = "#ff6e00")
+```
+---
+
+##  Análise por Componentes Principais - Interpretação
+
+#### Quantos componentes podemos usar?
+
+- Analisando o percentual de variância explicada, vemos que o primeiro componente explica `72,65%` da variância, o já é um índice aceitável para análise, e o segundo componente explica `16,56%`. Somados estes dois componentes temos um total de `94,10%` da variância explicada. Dessa forma, podemos definir o uso de 2 componentes principais.
+
+#### Quais as possíveis interpretações
+
+- Podemos entender que através da componente 1 que há uma influencia positiva e negativa de acordo com a variável escolhida, entretanto não há nenhuma com peso muito alto, maior está em cilindos num valor de `- 0.413`. Na segunda compenente, temos o maior valor de influencia, de `- 0.749` para velocidade. 
+
+
+
+---
+
+# Análise Fatorial
+
+Este método aborda o problema de analisar a estrutura das inter-relações (correlações) entre um grande número de variáveis (escores de testes, itens de testes, respostas de questionários), definindo um conjunto de dimensões latentes comuns, chamados fatores. Então, a análise fatorial, permite primeiro identificar as dimensões separadas da estrutura e então determinar o grau em que cada variável é explicada por cada dimensão. Uma vez que essas dimensões e a explicação da cada variável estejam determinadas, os dois principais usos da análise fatorial podem ser conseguidos:
+
+
+ - **Resumo**: ao resumir os dados, a análise fatorial obtém dimensões latentes que, quando interpretadas e compreendidas, descrevem os dados em um número muito menor de conceitos do que as variáveis individuais originais.
+
+ - **Redução de dados**: pode ser obtida calculando escores para cada dimensão latente e substituindo as variáveis originais pelos mesmos.
+
+Fonte: https://smolski.github.io/livroavancado/analisf.html
+
+
+```{r eval = FALSE, echo= FALSE}
+AFdf = factanal(df, 3, scores = "regression", rotation = "varimax")
+```
+
+---
+## Análise Fatorial
+- Comunalidade - Proporção de variabilidade de cada variável que é explicada pelos fatores.
+- Especifidade - o erro ou parcela da variância que não pode ser explicada pelos fatores
+
+.pull-left[
+
+```{r}
+L = cbind(sqrt(autos$values[1])*autos$vectors[,1],
+	sqrt(autos$values[2])*autos$vectors[,2])
+aux = L%*%t(L);aux|>round(3)|>knitr::kable()
+```
+]
+
+.pull-right[
+```{r}
+aux = L%*%t(L)
+qsi = diag(diag(c - aux));qsi|>round(3)|>
+knitr::kable()
+```
+
+```{r echo = FALSE}
+sum(qsi)
+```
+]
+---
+
+## Análise Fatorial
+
+### Correlação estimada 
+
+```{r}
+cor_est = aux + qsi; #cor_est|>round(3)|>knitr::kable()
+
+cor_est|>round(3)|>knitr::kable()
+```
+
+---
+
+## Análise Fatorial
+
+#### Escores
+
+```{r}
+esc = t(t(L)%*%t(df));esc|>round(3) |> DT::datatable(options = list(pageLength = 6))
+```
+
+---
+
+### Análise Fatorial
+
+-  o critério VARIMAX se concentra na simplificação das colunas da matriz fatorial
+
+```{r}
+AFdf = factanal(df, 3, scores = "regression", rotation = "varimax");AFdf$loadings
+```
+
+```{r echo = FALSE, eval = FALSE}
+broom::tidy(factanal(df, 3, scores = "regression", rotation = "varimax"))
+```
+
+---
+### Análise Fatorial
+
+```{r}
+AFdf$uniquenesses # variancia explicada
+
+apply(AFdf$loadings^2,1,sum) #comunalidade
+
+1 - apply(AFdf$loadings^2,1,sum) #especifidade
+
+```
+
+---
+
+### Análise Fatorial
+
+- sem nenhum critério de rotatividade
+
+```{r}
+AFdf2 = factanal(df, 2, scores = "regression", rotation = 'none');AFdf2$loadings
+```
+
+
+```{r echo = FALSE, eval = FALSE}
+broom::tidy(factanal(df, 2, scores = "regression", rotation = "promax"))
+```
+
+---
+### Análise Fatorial
+
+```{r}
+AFdf2$uniquenesses # variancia explicada
+
+apply(AFdf2$loadings^2,1,sum) #comunalidade
+
+1 - apply(AFdf2$loadings^2,1,sum) #especifidade
+```
+
+---
+
+class: center, middle
+
+# Obrigado!!!
+
+```{r out.width= '40%', echo=FALSE}
+knitr::include_graphics('https://media.giphy.com/media/JlpjgShzDsrMIyFu5U/giphy.gif')
+```
