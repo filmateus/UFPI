@@ -1,0 +1,289 @@
+---
+title: "Seminário Análise de dados categóricos"
+subtitle: "Detecção precoce do câncer de pele: experiência de campanha de prevenção no Piauí - Brasil"  
+author: 
+  - "Filipe Costa"
+date: '`r format(Sys.Date(), "%d %B,%Y")`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=8, fig.height=4, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+
+)
+
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE, message = FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#3cd15c",
+  secondary_color = "#24940e",
+  inverse_header_color = "#043100",
+  title_slide_background_image ="https://www.infoescola.com/wp-content/uploads/2016/05/ufpi.png",
+  title_slide_background_size = "50",
+  title_slide_background_position = "bottom",
+  header_font_google = google_font("Roboto")
+)
+require(epiR)
+```
+
+
+## Autores:
+
+- Rafael Bandeira Lages, Patrícia Barros Barbosa, Isabella Parente Almeida, Lauro Rodolpho Soares Lopes, Lauro Lourival Lopes Filho
+
+## Objetivos
+
+`Avaliar a associação do diagnóstico de câncer de pele com fatores de risco conhecidos através da análise de dados` da Campanha Nacional de Prevenção ao Câncer de Pele realizada pela Sociedade Brasileira de Dermatologia no estado do Piauí, Brasil, nos últimos anos.
+
+## Métodos:
+
+`Estudo transversal analítico com características descritivo-quantitativas` utilizando os dados obtidos a partir da referida campanha no estado do Piauí, nos anos de 2009 e 2010. Realizou-se análise descritiva dos dados coletados, além de `regressão logística multivariada`, usando como variável dependente o diagnóstico de câncer de pele.
+
+--
+
+### Trata-se de um `Estudo Observacional`
+
+
+---
+
+# Resultados
+
+Em 2009 e 2010, esta campanha foi responsável pela realização de `1141 atendimentos`, `diagnosticando 122 (10,7% dos atendimentos) casos de câncer de pele`: 108 carcinomas basocelulares (CBC), 10 espinocelulares (CEC) e 4 melanomas. Dos examinados, 35,4%  eram homens, 73,1% relataram proteção solar inadequada, 16,4% apresentavam história familiar de câncer de pele e 7,2% história pregressa. Indivíduos com história pregressa de câncer de pele  presentaram 5,24 vezes mais chances de ter um novo diagnóstico de câncer, ao passo que aqueles com pele não-negra apresentaram 4,91 vezes mais chances de diagnóstico
+
+# Conclusão
+
+História pessoal e familiar de neoplasia epitelial, cor não-negra e sexo masculino estiveram associados com maiores chances de desenvolvimento de câncer de pele. Além disso, a exposição solar sem proteção continua sendo rotineira. 
+
+---
+
+# Quais as variáveis que foram trabalhadas?
+
+## Variáveis independentes
+
+- Gênero
+- Cor da pele
+- Exposição solar
+- História familiar câncer de pele
+- História pessoal câncer de pele
+- Como soube da campanha `?`
+
+## Variável dependente
+
+- Câncer diagnóstico
+
+---
+
+### Estudo transversal
+
+- São estudos utilizados para investigar potenciais associações entre fatores suspeitos de serem de risco e a doença.
+
+- A medida relacionada com este tipo de estudo é a `prevalência`.
+
+- As informações são coletadas simultaneamente de um grupo de indivíduos em um ponto específico do tempo.
+
+
+### Regresão logística
+
+- modelar a probabilidade de um evento ocorrer dependendo dos valores das variáveis independentes, que podem ser categóricas ou contínuas.
+
+- `estimar a probabilidade de um evento ocorrer para uma observação selecionada aleatoriamente contra a probabilidade do evento não ocorrer.`
+
+- prever o efeito do conjunto de variáveis sobre a variável dependente binária.
+
+
+---
+
+## Odds-ratio
+
+```{r fig.align= 'center', echo= FALSE}
+knitr::include_graphics("tabela2.png")
+```
+
+---
+
+## Resumo dados
+
+```{r out.width = "60%", fig.align= 'center', out.height= "60%", echo= FALSE}
+knitr::include_graphics("tabela1.png")
+```
+
+---
+
+#  Alguns Problemas
+
+- Coleta de dados em dois momentos históricos: 2009 e 2010
+  - Diferença significativa nos números de atendimentos: 755 e 386
+
+- Nenhum controle sobre duplicidade na população
+
+- A `amostra` foi constituída de  1141 atendimentos `?`
+
+- Utilização de *Odds ratio* para identificar o grau de influência das variaveis independentes e comparar os grupos.
+  - Utilizando regressão logística.
+
+- Teste de hipóteses `?`
+  - Nenhum
+
+---
+
+## Tabela de contigência 1 
+
+- Histórico Pessoal:
+
+```{r echo = FALSE}
+table2_1 = data.frame("Histórico Pessoal" = c('Sim', 'Não'),
+                    'Sim' = c(28, 94),
+                    'Não' = c(54, 965),
+                    check.names = FALSE)
+
+table2_1  |> 
+dplyr::mutate(Total = Sim + Não)|>
+janitor::adorn_totals("row")|>
+kableExtra::kbl(booktabs = T, align = "cccc")|>
+kableExtra::add_header_above(c(" ", 'Câncer' = 2, " "))
+```
+
+
+- Histórico Familiar:
+
+```{r echo = FALSE}
+table2_2 = data.frame("Histórico Familiar" = c('Sim', 'Não'),
+                    'Sim' = c(27, 95),
+                    'Não' = c(160, 859),
+                    check.names = FALSE)
+
+table2_2 |> 
+dplyr::mutate(Total = Sim + Não)|>
+janitor::adorn_totals("row")|>
+kableExtra::kbl(booktabs = T, align = "cccc")|>
+kableExtra::add_header_above(c(" ", 'Câncer' = 2, " "))
+```
+
+---
+
+## Tabela de contigência 2 
+
+- Sexo:
+
+```{r echo = FALSE}
+table2_3 = data.frame("Sexo" = c('M', 'F'),
+                    'Sim' = c(47, 75),
+                    'Não' = c(357, 662),
+                    check.names = FALSE)
+
+table2_3 |> 
+dplyr::mutate(Total = Sim + Não)|>
+janitor::adorn_totals("row")|>
+kableExtra::kbl(booktabs = T, align = "cccc")|>
+kableExtra::add_header_above(c(" ", 'Câncer' = 2, " "))
+```
+
+- Cor:
+
+```{r echo = FALSE}
+table2_4 = data.frame("Cor" = c('Não Negro', 'Negro'),
+                    'Sim' = c(112, 10),
+                    'Não' = c(887, 132),
+                    check.names = FALSE)
+
+table2_4 |>
+dplyr::mutate(Total = Sim + Não)|>
+janitor::adorn_totals("row")|>
+kableExtra::kbl(booktabs = T, align = "cccc")|>
+kableExtra::add_header_above(c(" ", 'Câncer' = 2, " "))
+```
+
+
+```{r echo = FALSE, eval = FALSE}
+x = 112
+y = 122 - x;y
+n1 = 999
+n2 = 1141 - n1
+z = ((x/n1)/(1 - (x/n1)))/((y/n2)/(1 - (y/n2)));z
+
+# total  de indivíduos com a resposta em um tempo específico / total  de indivíduos pesquisados em um tempo específico 
+```
+
+---
+
+## Prevalência
+
+- **Como nos estudos tranversais os indivíduos não são acompanhados por um período de tempo, não é possível obter a proporção de casos novos, mas a sim a de indivíduos com reposta positiva em um ponto específico do tempo**
+
+$$\frac{total\  de\ individuos\ com\ a\ resposta\ em\ um\ tempo\ especifico}{total\  de\ individuos\ pesquisados\ em\ um\ tempo\ especifico}$$
+
+```{r echo = FALSE}
+sprintf("%.2f%%", 100*(122/1141))
+```
+
+## Teste de hipótese
+
+$$H_{0}: p_{ij} = (p_{i+})(p_{+j}),\ para\ i,j=1,2$$ 
+$$H_{A}: p_{ij} \neq (p_{i+})(p_{+j}),\ para\ menos\ um\ par(i,j)$$
+---
+
+## Histórico Pessoal:
+
+```{r}
+pessoal<-matrix(c(28,54,94,965), nc=2, byrow = T)
+#Qp_pessoal = chisq.test(pessoal); Qp_pessoal
+epiR::epi.2by2(pessoal)
+```
+
+---
+
+## Histórico Familiar:
+
+```{r}
+familiar <-matrix(c(27,160,95,859), nc=2, byrow = T)
+#Qp_familiar <-chisq.test(familiar, correct=F); Qp_familiar
+epiR::epi.2by2(familiar)
+```
+
+---
+
+## Sexo
+
+```{r}
+sexo<-matrix(c(47,357,75,662), nc=2, byrow = T)
+# Qp_sexo <-chisq.test(sexo, correct=F); Qp_sexo
+epiR::epi.2by2(sexo)
+```
+---
+
+## Cor
+
+```{r}
+cor <- matrix(c(112,887,10,132), nc=2, byrow = T)
+#Qp_cor <-chisq.test(cor, correct=F); Qp_cor
+epiR::epi.2by2(cor)
+```
+
+---
+
+
+class: center, middle
+
+# Obrigado!!!
+
+```{r  out.width= '40%', echo=FALSE}
+knitr::include_graphics("https://media.giphy.com/media/9nABcoXr2lqUM/giphy.gif")
+```
