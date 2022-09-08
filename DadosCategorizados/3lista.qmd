@@ -6,21 +6,65 @@ format:
     colorlinks: true
     keep-tex: true
 header-includes:
-  - \usepackage{float}
-  - \restylefloat{table}
+  - \usepackage{setspace}\spacing{0.75}
+  - \newcommand\tab[1][1cm]{\hspace*{#1}}
 
 #editor: visual
 ---
+
+
+\begin{centering}
+
+
+\begin{singlespace}
+\Large
+UNIVERSIDADE FEDERAL DO PIAUÍ
+
+\Large
+CENTRO DE CIÊNCIAS DA NATUREZA
+
+\Large
+CURSO DE GRADUAÇÃO EM ESTATÍSTICA
+\end{singlespace}
+
+\end{centering}
+
+
 
 
 **3ª LISTA**
 
 **Nome:** Filipe Costa
 
+# 1
 
+# a
 
-```{r}
+O estudo é observacional pois o pesquisador coletou resíduos químicos que já estavam prontos. Não houve intervenção para aplicar doses de pesticidas em algumas mulheres, por exemplo, o que configuraria como experimental.
 
+Ao lermos na pesquisa que a amostra se configurou em uma metade com diagnóstico com tumor maligno e outra metade com tumor do tipo benigno, temos indicação de uma pesquisa do tipo *caso-controle*. Neste tipo, ocorre a seleção de um grupo com a doença, os *casos*, e os livres da doença, *os controles*. 
 
+De acordo com o livro *Introdução à análise de dados categóricos com aplicações* de Suely Ruiz Giolo, pág. 9, temos um problema na pesquisa pois o estudo desconsidera o pareamento por características demográficas e/ou comportamentais, devido o pesquisador considerar *em conta fatores já conhecidos associados ao câncer de mama, tais como: idade, dieta e histórico na família*, ocorrendo um problema na metodologia aplicada.
 
-```
+# b 
+
+A frase se refere as variáveis explanatórias ou independentes, ou seja, aquelas variáveis que devem ser consideradas para o estudo pois em algum grau de influência na variável resposta. 
+
+# c
+
+A pesquisa não considerou a idade como um fator para o câncer, o que um problema. Ao realizarmos a análise dos dados, podíamos constatar uma presença maior da doença em mulheres mais velhas, por exemplo.
+
+# 2 
+
+## a 
+
+O estudo é observacional porque a pesquisa analisou a dieta de vários homens para chegar a conclusão. A possibilidade de um estudo clínico não é aceita pois este tipo de estudo é experimental, ou seja, ocorre a intervenção do pesquisador na pesquisa. Neste caso, se os pesquisadores definissem o que os homens iriam comer para o estudo, teriamos uma alteração do tipo de pesquisa, tornando-o experimental, o que não é o caso.
+
+O estudo se configura como de *coorte*. Neste tipo de pesquisa, na fase incial todos os indivíduos estão longe da doença, e como o trabaho em análise estudou homens que *não tiveram histórico de desenvolver pedras nos rins*, temos um requisito da pesquisa coorte satisfeito. Ocorre depois o acompanhamento por um período de tempo, registrando a presença ou não da doença.
+
+## b
+
+A variável resposta da pesquisa avalia a *presença ou não de pedras nos rins de homens de 40 a 75 anos*. A variável explanatória, ou independente, *é consumo de alimentos ricos em cálcio, como leite*.
+
+## c
+

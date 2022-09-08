@@ -25,9 +25,7 @@ knitr::opts_chunk$set(
   message = FALSE, 
   warning = FALSE,
   hiline = TRUE
-
 )
-
 ```
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE, message = FALSE}

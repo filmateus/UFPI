@@ -6,11 +6,27 @@ format:
     colorlinks: true
     keep-tex: true
 header-includes:
-  - \usepackage{float}
-  - \restylefloat{table}
-
+  - \usepackage{setspace}\spacing{0.75}
+  - \newcommand\tab[1][1cm]{\hspace*{#1}}
 #editor: visual
 ---
+
+\begin{centering}
+
+
+\begin{singlespace}
+\Large
+UNIVERSIDADE FEDERAL DO PIAUÍ
+
+\Large
+CENTRO DE CIÊNCIAS DA NATUREZA
+
+\Large
+CURSO DE GRADUAÇÃO EM ESTATÍSTICA
+\end{singlespace}
+
+\end{centering}
+
 
 
 **2ª LISTA**
@@ -19,6 +35,31 @@ header-includes:
 
 
 # 1 
+
+## Estudo de coorte:
+
+**Mortalidade neonatal precoce no município de Caxias do Sul: um estudo de coorte**
+
+Objetivos:
+
+- Estabelecer o perfil dos neonatos de Caxias do Sul e estudar a mortalidade neonatal precoce, suas causas e as variáveis a esta relacionadas.
+
+## Estudo caso-controle:
+
+**Determinantes da mortalidade neonatal: estudo caso-controle em Fortaleza, Ceará, Brasil**
+
+Objetivos:
+
+- O estudo objetivou determinar os fatores associados aos óbitos neonatais em Fortaleza no ano de 2009.
+
+## Estudo transversal:
+
+**Doenças sexualmente transmissíveis e gênero: um estudo transversal com adolescentes no Rio de Janeiro**
+
+Objetivos:
+
+- O objetivo do presente estudo foi conhecer a população adolescente atendida no Núcleo
+de Estudos em Saúde do Adolescente (NESA), da Universidade do Estado do Rio de Janeiro(UERJ), do ponto de vista da sexualidade e descrever possíveis fatores de risco às DST.
 
 \newpage
 
@@ -33,64 +74,133 @@ header-includes:
 
 ## a
 
-
-```{r }
-table2 = data.frame("Distância de uma indústria " = c('Próximo a indústria', 
-                                                      'Longe da indústria'),
-                    'S' = c(96, 48), 
-                    'N' = c(64, 192),
+```{r}
+table2 = data.frame("Proximidade" = c('Distante', 'Próximo'),
+                    'Sim' = c(96, 48), 
+                    'Não' = c(64, 192),
                     check.names = FALSE)
 
 
 table2 |> 
-dplyr::mutate(Total = S + N)|>
+dplyr::mutate(Total = Sim + Não)|>
 janitor::adorn_totals("row")|>
 kableExtra::kbl(booktabs = T, align = "cccc")|>
-kableExtra::add_header_above(c(" ", 'Chance de contaminação' = 2, " "))
+kableExtra::add_header_above(c(" ", 'Contaminação' = 2, " "))
 ```
 
-O estudo apresentado pode ser indicado como deliniamento `transversal`, a caracteristica deste procedimento é captação dos dados no pontos de coleta num respectivo período no tempo e, aparetemente, consiste no que foi realizado na pesquisa, selecionado pontos para retirada de amostras de água. 
 
-Não há indicação de restrição do tamanho da amostra, foram selecionados 400 pontos independete da proximidade de insdustria ou não. O cálculo da distância para uma fábrica foi medida depois. Pela `liberdade` da amostragem, temos um modelo probabilístico baseado no `Produto Poisson`
+\tab O estudo apresentado se configura como `coorte`. Após o processo de amostragem é determinado quais são os grupos expostos ou não expostos a elemento de influência, neste caso, a proximidade a uma fábrica, sendo 40 % próximos e 60 % distantes. 
+
+\tab Após este processo de determinação da exposição, é analisado a presença da variável reposta, que seria o índice de contaminação. 
+
+\tab Uma característica do estudo de coorte é que para sua configuração, $_{1+}$ e $n_{2+}$ são fixados no delianiamento amostral e considerando que temos um `n` amostral definido, 400, o modelo probabilístico mais adequado é o Produto Multinomiais. 
 
 
 ## b
 
-Os testes para o estudo das amostras nos rios devem analisar a indepedência da associação entre variável explicativa e a variável resposta, que são nesse caso:
+\tab Os testes para o estudo das amostras nos rios devem analisar a indepedência da associação entre variável explicativa e a variável resposta, que são nesse caso:
 
 - Variavel explicativa: **Proximidade do ponto de coleta para uma industria**
 - Variavel resposta: **Índice de contaminação**
 
-Diante do contexto, podemos realizar um teste de hipótese com as seguinte hipoteses:
+\tab Diante do contexto, podemos realizar um teste de hipótese com as seguinte hipoteses:
 
 - $H_{0}$: a distância para uma fábrica não influência na qualidade da água.
 - $H_{1}$: a distância para uma fábrica influência na qualidade da água.
 
+\tab O teste indicado para indepedência é o ${\chi}^2$ que, resumidamente, compara o valor registrado na tabela com o valor esperado. A diferença dos valores influência no resultado.
 
-O teste indicado para indepedência é o ${\chi}^2$ que, resumidamente, compara o valor registrado na tabela com o valor esperado. A diferença dos valores influência no resultado.
+\tab A função ${\chi}^2$ tem o seguinte formato:
 
-Usando a função em R, temos:
+$${\chi}^2 = \sum \frac{o_{i} - e_{i}}{e_{i}}$$
 
+\tab Onde $o_{i}$ são os valores observados e $e_{i}$ são os valores esperados que precisamos calcular. Um método simples para obtenção dos valores consiste em multiplicar o valor total da coluna e linha divindindo pelo total ($e_{ij} = \frac{n_{i+}n_{+j}}{total}$):
 
 ```{r}
-mat = matrix(c(96, 48, 64, 192), 2,2, byrow = T )
-chisq.test(mat)
+e11 = 144*160/400; e11
+e12 = 256*160/400; e12
+e21 = 144*240/400; e21
+e22 = 256*240/400; e22
 ```
 
-Com o Resultado apresentado, temos evidencias para afirmar que a distância para uma fáblica influencia na qualidade da água.
+\tab Obtidos os valores esperado, iremos utlizar a função R para o cálculo da ${\chi}^2$:
+
+```{r}
+p = matrix(c(e11, e21, e12, e22), 2, 2, byrow = T) #valores esperados
+mat =  matrix(c(96, 48, 64, 192), 2, 2, byrow = T) #valores observados
+testeQui = chisq.test(mat, p)
+
+testeQui
+```
+
+\tab Com o resultado apresentando uma p-valor muito inferior a 0.05, temos evidências para afirmar que a distância para uma fábrica influência na qualidade da água.
 
 
 ## c 
 
-```{r}
+- O risco relativo é a probabilidade de um evento ocorrer no grupo exposto em relação ao não exposto:
 
+```{r}
+exposto = 96/160
+Nexposoto = 64/240
+
+RiscoRelativo = round(exposto/Nexposoto, 3); RiscoRelativo
+```
+
+A interpração é que uma amostra de água próxima a uma fábrica tem um riscode `r RiscoRelativo`% maior de está contaminada comparada a uma amostra distante.
+
+## d
+
+```{r}
+Intervalorisco = function(p1, p2, n1, n2){
+                  f = log(p1) + log(p2)
+                  vf = (1 - p1)/n1*p1 + (1 - p2)/n2*p2
+                  ic1 = exp(1)^(f + 1.96*vf)
+                  ic2 = exp(1)^(f - 1.96*vf)
+                  print(list(ic2,ic1))
+}
+
+Intervalorisco(exposto, Nexposoto, 144, 256)
 ```
 
 
+## e
+
+\tab O cálculo da razão de chance ou *ods ratio* consiste na divisão da probabilidade de um evento acontecer em um grupo em relação a outro grupo, neste caso, os grupos são:
+
+- Amostra da água próxima a uma fábrica
+- Amostra da água distante de uma fábrica
+
+```{r}
+oddE = (96/144)/(48/144); oddE
+oddNE = (64/256)/(192/256); oddNE
+oddsRatio = oddE/oddNE; oddsRatio
+```
+
+\tab O resultado apresentado com um *odds Ratio* de `r oddsRatio` significa que a chance de contaminação de ocorrer num grupo próximo a fábrica 6 vezes a de um grupo mais distante.
+
+## f
+
+```{r}
+intervaloOdds = function(n1, n2, n3, n4, Od){
+                    f = log(Od)
+                    Vf = 1/n1 + 1/n2 + 1/n3 + 1/n4
+                    Ic1 = exp(1)^(f + 1.96*Vf)
+                    Ic2 = exp(1)^(f - 1.96*Vf)
+                    print(list(Ic1, Ic2))
+}
+
+intervaloOdds(96, 48, 64, 192, 6)
+```
+
+\tab Relizando a função do intervalo de confiança (95%) para o *Odds Ratio*, podemos expressar o intervalo da seguinte forma: $5,41 < odds\ Ratio < 6,64$
+
+
+\newpage
 
 # 3
 
-- **Informações**'
+- **Informações**
   - n = 381
   - 127 crianças com morte devido a infecção respiratória
   - 254 em caso de controle
@@ -103,4 +213,27 @@ Com o Resultado apresentado, temos evidencias para afirmar que a distância para
 
 ## a 
 
+- **Variável resposta**:
+    - Fatores de risco relacionados com a mortalidade infantil
 
+
+- **Variaveis explicativas**
+  - *nível socieconômico*: Politômicas
+  - *grau de escolaridade*: Politômicas
+  - *tipo de aleitamento*: Politômicas
+  - *baixo peso ao nascer*: Binária
+  - *idade*: Contagem discreta
+
+## b
+
+\tab O objeto deste tipo de estudo é avaliar a associação de um tipo de doença com fatores de risco. Nesta abordagem, temos dois grupos, aqueles que possuem a doença, os *casos* e o indivíduos livres, *controle*. Um importante prerrequisito do caso de caso-controle é que os dois grupos devem possuir a mesma probabilidade de contaminação.
+
+\tab As principais vantagens desta modalidade de pesquisa é o custo e o tempo, comparado ao de coorte, entretanto, são propensos a enviesamentos devido a possíveis manipulações nos grupos comparados.
+
+## c
+
+\tab O pesquisador ao realizar uma pesquisa *caso-controle* deve buscar minimizar os vieses de seleção, dessa forma, o processo de amostragem deve ser bem definido. Na pesquisa apresentada, percebemos um pareamento do grupo de controle em relação ao número de casos, para cada situação de morte, há 2 do grupo controle.
+
+## d
+
+\tab Não poderiamos calcular o *Risco Relativo*, essa medida compara a exposição entre o grupo exposto e o grupo controle. Para o caso de uma pesquisa caso-controle, isto é determinado na configuração da amostragem, não sendo dado probalístico e que não podemos mensurar. 
