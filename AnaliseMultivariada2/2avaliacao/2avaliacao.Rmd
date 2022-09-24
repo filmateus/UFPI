@@ -1,0 +1,210 @@
+---
+title: "Análise Discriminante e Análise de agrupamento"
+author: "Edvaldo Sampaio e Filipe Costa"
+date: '`r format(Sys.Date(), "%d %B,%Y")`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  fig.width=8, fig.height=4, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  #echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE,
+  fig.align = 'center'
+)
+
+library(xaringanthemer)
+library(dplyr)
+library(parglm)
+library(ROCR)
+library(psych)
+library(ggplot2)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE, message = FALSE}
+style_duo_accent(
+  primary_color = "#7adfe3",
+  secondary_color = "#ff7002",
+  inverse_header_color = "#043100",
+  title_slide_background_image ="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg",
+  title_slide_background_size = "50",
+  title_slide_background_position = "50% 90%",
+  header_font_google = google_font("Roboto")
+)
+pokemon <- basesCursoR::pegar_base("pokemon")
+pokemon = pokemon[,c(4, 7, 10, 11, 12, 13, 14)]
+pokemon = na.omit(pokemon)
+#rownames(pokemon) <- pokemon$pokemon
+#pokemon$pokemon = NULL
+# pokemon[,2:6] = sapply(pokemon[,2:6], as.numeric)
+```
+
+# Banco de dados
+
+- Banco de dados
+  - Pokemon
+
+```{r}
+pokemon
+```
+
+---
+# Pokemon
+
+### Algumas informações:
+
+- Franquia de mídia pertecente a The Pokémon Company e  criada por Satoshi Tajiri em 1995.
+
+- A franquia iniciada com um par de jogos lançados para o Game Boy original, desenvolvidas pela Game Freak e publicadas pela Nintendo.
+
+- Mais de 900 espécies de ficção.
+
+- 8 gerações
+
+- Nona Geração
+ - Em 27 de fevereiro de 2022, Pokémon Scarlet e Violet foram anunciados para o Nintendo Switch, com data de lançamento para 2022. 
+
+---
+
+# Análise	Descritiva
+
+```{r}
+psych::describe(pokemon[,2:6])|>
+  dplyr::select(mean, sd, median, min, max, range)|>
+  round(2)|>knitr::kable()
+```
+
+---
+
+# Análise de Cluster
+
+```{r}
+hc <- hclust(dist(pokemon, method = "euclidean"), "ave"); plot(hc)
+grupos = cutree(hc, k=5); rect.hclust(hc, k=5, border="#ff7002")
+```
+---
+
+# Correlação Fonética
+
+```{r}
+d = dist(pokemon, method = "euclidean")
+sing = hclust(d, method = "single")
+distance_sr = cophenetic(sing); cccs = cor(d, distance_sr);cccs
+```
+
+```{r}
+comp = hclust(d, method = "complete")
+distance_cp = cophenetic(comp) ;cccc = cor(d, distance_cp);cccc
+```
+
+```{r }
+avg = hclust(d, method="average")
+distance_avg = cophenetic(avg) ; ccca = cor(d, distance_avg);ccca
+```
+---
+
+## Agrupamento - k-means
+
+```{r out.width = "80%"}
+rownames(pokemon) <- pokemon$pokemon
+df = scale(pokemon[,2:6]); km.res = kmeans(df, 5, nstart = 100)
+factoextra::fviz_nbclust(df, kmeans, method = "wss")+geom_vline(xintercept = 5, linetype = 2)
+```
+
+---
+## Agrupamento - k-means
+
+```{r out.width = "80%"}
+factoextra::fviz_cluster(km.res, data = df,palette = "Set2" )+ggplot2::theme_linedraw()
+```
+
+---
+# Entendendo a distinção
+
+- Contruímos um gráfico de radar para ajudar na comprensão da distinção feita pelo agrupamento
+
+```{r echo = FALSE, include=FALSE}
+pokemon$ordem = seq(1,949,1)
+#selecinando os valores mais destacados dos cluestes
+values =  c(242, 349, 213, 124, 880)
+#seleccinando as colunas
+pokemon_radar = pokemon[pokemon$ordem %in% values, ]
+# função para captura os máximos e míminos
+max_min_finder = function(data){
+  max = sapply(data, max)
+  min <- sapply(data,min)
+  return(data.frame(max,min))
+}
+
+max_min_finder(pokemon_radar)
+
+mx_min_pokemon = data.frame(
+  pokemon = c("max", "min"),
+  exp_base = c(610, 35),
+  hp = c(260, 15),
+  ataque = c(185, 15),
+  defesa = c(235, 15),
+  ataque_especial = c(155, 15),
+  defesa_especial = c(230, 60),
+  ordem = c(885, 130)
+)
+
+pokemon_radar_mix = rbind(mx_min_pokemon, pokemon_radar)
+# renomeando as linhsa
+rownames(pokemon_radar_mix) = pokemon_radar_mix$ordem
+
+
+colors_border= c( rgb(0.1,0.5,0.5,0.9), rgb(0.2,0.2,0.5,0.9) , rgb(0.3,0.5,0.1,0.9),
+                  rgb(0.9,0.4,0.5,0.9), rgb(0.4,0.5,0.5,0.9))
+pokemon_radar_mix$pokemon = NULL
+```
+
+```{r echo=FALSE}
+fmsb::radarchart(pokemon_radar_mix, cglcol="grey", cglty=1, maxmin = TRUE,axislabcol="grey",  plty = 1,
+                 cglwd=1, vlcex=0.7, pcol=colors_border,  pfcol = scales::alpha(colors_border, alpha = 0.3))
+legend(x=1.75, y=1, legend = rownames(pokemon_radar_mix[3:7,]), bty = "n", pch=15, 
+       col =  colors_border, text.col = "Black", cex=1, pt.cex=2)
+```
+
+---
+
+# Análise Discriminante
+
+```{r}
+
+
+```
+
+---
+
+- Referências
+
+- https://pt.wikipedia.org/wiki/Pok%C3%A9mon
+
+
+
+---
+class: center, middle
+
+# Obrigado!!!
+
+
+```{css, echo=FALSE}
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+```
